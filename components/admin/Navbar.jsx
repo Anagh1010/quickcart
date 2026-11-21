@@ -1,6 +1,6 @@
 'use client'
+import logo from "@/assets/logo.svg";
 import React from 'react'
-import { assets } from '@/assets/assets'
 import Image from 'next/image'
 import { useAppContext } from '@/context/AppContext'
 
@@ -12,7 +12,7 @@ const Navbar = () => {
       <Image
         onClick={() => router.push('/')}
         className='w-28 lg:w-32 h-auto cursor-pointer'
-        src={assets.logo}
+        src={logo}
         alt='QuickCart'
       />
       <div className='flex items-center gap-3'>

@@ -2,15 +2,14 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { assets } from "@/assets/assets";
 import SectionHeading from "@/components/layout/SectionHeading";
 
 const categories = [
-  { filter: "Headphone,Earphone", image: assets.apple_earphone_image, name: "Audio", slot: "CAT 01", count: "14 items" },
-  { filter: "Laptop", image: assets.macbook_image, name: "Computing", slot: "CAT 02", count: "28 items" },
-  { filter: "Console", image: assets.md_controller_image, name: "Gaming", slot: "CAT 03", count: "9 items" },
-  { filter: "Camera", image: assets.cannon_camera_image, name: "Photography", slot: "CAT 04", count: "6 items" },
-  { filter: "Watch", image: assets.venu_watch_image, name: "Wearables", slot: "CAT 05", count: "11 items" },
+  { filter: "Headphone,Earphone", image: "/assets/apple_earphone_image.png", name: "Audio", slot: "CAT 01", count: "14 items" },
+  { filter: "Laptop", image: "/assets/macbook_image.png", name: "Computing", slot: "CAT 02", count: "28 items" },
+  { filter: "Console", image: "/assets/md_controller_image.png", name: "Gaming", slot: "CAT 03", count: "9 items" },
+  { filter: "Camera", image: "/assets/cannon_camera_image.png", name: "Photography", slot: "CAT 04", count: "6 items" },
+  { filter: "Watch", image: "/assets/venu_watch_image.png", name: "Wearables", slot: "CAT 05", count: "11 items" },
 ];
 
 const getCategoryHref = (filter) => `/all-products?category=${encodeURIComponent(filter)}&sort=newest`;

@@ -1,27 +1,26 @@
 import React from "react";
 import Link from "next/link";
-import { assets } from "@/assets/assets";
 import Image from "next/image";
 import SectionHeading from "@/components/layout/SectionHeading";
 
 const collections = [
   {
     id: 1,
-    image: assets.girl_with_headphone_image,
+    image: "/assets/girl_with_headphone_image.png",
     code: "CAT AU-01",
     title: "Unparalleled Studio Sound",
     description: "High-fidelity audio monitors engineered for music production, gaming, and everyday listening.",
   },
   {
     id: 2,
-    image: assets.girl_with_earphone_image,
+    image: "/assets/girl_with_earphone_image.png",
     code: "CAT AU-02",
     title: "Active Noise-Cancelling Buds",
     description: "Compact wireless earbuds for travel, workout sessions, and crystal-clear calls on the move.",
   },
   {
     id: 3,
-    image: assets.boy_with_laptop_image,
+    image: "/assets/boy_with_laptop_image.png",
     code: "CAT PC-03",
     title: "Pro Computing & Laptops",
     description: "High-efficiency laptops and workstations tested for intensive creative workflows and coding.",

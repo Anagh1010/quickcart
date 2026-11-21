@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState } from "react";
-import { assets } from "@/assets/assets";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import { useParams } from "next/navigation";
@@ -198,7 +197,7 @@ const EditProduct = () => {
                                         />
                                         <Image
                                             className="max-w-16 rounded-xl border p-1 object-contain hover:border-gray-300 transition w-16 h-16 bg-gray-50"
-                                            src={fileObj ? URL.createObjectURL(fileObj) : assets.upload_area}
+                                            src={fileObj ? URL.createObjectURL(fileObj) : "/assets/upload_area.png"}
                                             alt="upload"
                                             width={64}
                                             height={64}

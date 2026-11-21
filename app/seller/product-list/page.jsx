@@ -1,6 +1,6 @@
 'use client'
+import redirect_icon from "@/assets/redirect_icon.svg";
 import React, { useEffect, useState } from "react";
-import { assets } from "@/assets/assets";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
@@ -113,7 +113,7 @@ const ProductList = () => {
                             <span>Visit</span>
                             <Image
                               className="h-3 w-3 opacity-60"
-                              src={assets.redirect_icon}
+                              src={redirect_icon}
                               alt="redirect"
                             />
                           </button>

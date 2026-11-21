@@ -1,8 +1,9 @@
 "use client";
+import star_icon from "@/assets/star_icon.svg";
+import star_dull_icon from "@/assets/star_dull_icon.svg";
 
 import React from "react";
 import Image from "next/image";
-import { assets } from "@/assets/assets";
 import Loading from "@/components/Loading";
 
 const ProductReviews = ({
@@ -24,8 +25,10 @@ const ProductReviews = ({
               <Image
                 key={index}
                 className="size-4"
-                src={index < Math.floor(stats.avgRating || 4.5) ? assets.star_icon : assets.star_dull_icon}
+                src={index < Math.floor(stats.avgRating || 4.5) ? star_icon : star_dull_icon}
                 alt="star"
+                width={16}
+                height={16}
               />
             ))}
           </div>
@@ -140,8 +143,10 @@ const ProductReviews = ({
                           <Image
                             key={i}
                             className="size-2.5"
-                            src={i < rev.rating ? assets.star_icon : assets.star_dull_icon}
+                            src={i < rev.rating ? star_icon : star_dull_icon}
                             alt="star"
+                            width={10}
+                            height={10}
                           />
                         ))}
                       </div>

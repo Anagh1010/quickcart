@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import React, { useEffect, useMemo, useState } from "react";
-import { assets } from "@/assets/assets";
 import { useRouter } from "next/navigation";
 import LayoutContainer from "@/components/layout/LayoutContainer";
 import { getCloudinaryImageUrl } from "@/lib/cloudinaryImage";
@@ -29,7 +28,7 @@ const HomeHeroSlider = ({ products }) => {
         status: "● In stock for express delivery",
         cta: "Shop MacBook Pro →",
         product: findProduct(["macbook", "pro 16"]),
-        fallbackImage: assets.header_macbook_image,
+        fallbackImage: "/assets/header_macbook_image.png",
       },
       {
         id: "playstation",
@@ -44,7 +43,7 @@ const HomeHeroSlider = ({ products }) => {
         status: "● Limited stock available",
         cta: "Shop PlayStation 5 →",
         product: findProduct(["playstation", "ps5"]),
-        fallbackImage: assets.header_playstation_image,
+        fallbackImage: "/assets/header_playstation_image.png",
       },
       {
         id: "samsung",
@@ -59,7 +58,7 @@ const HomeHeroSlider = ({ products }) => {
         status: "● Same-day dispatch available",
         cta: "Shop Galaxy S25 →",
         product: findProduct(["samsung", "s23", "s25"]),
-        fallbackImage: assets.samsung_s23phone_image,
+        fallbackImage: "/assets/samsung_s23phone_image.png",
       },
     ];
   }, [products]);

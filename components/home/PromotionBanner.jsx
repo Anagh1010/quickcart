@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { assets } from "@/assets/assets";
 import LayoutContainer from "@/components/layout/LayoutContainer";
 
 const PromotionBanner = () => (
@@ -36,10 +35,10 @@ const PromotionBanner = () => (
 
           <div className="flex items-center justify-center gap-4">
             <div className="hidden rounded-2xl bg-[#1c1d22] border border-stone-800 p-4 md:block">
-              <Image alt="Soundbox" className="size-32 object-contain" height={140} src={assets.jbl_soundbox_image} width={140} />
+              <Image alt="Soundbox" className="size-32 object-contain" height={140} src={"/assets/jbl_soundbox_image.png"} width={140} />
             </div>
             <div className="rounded-2xl bg-[#1c1d22] border border-stone-800 p-5">
-              <Image alt="Controller" className="size-40 object-contain" height={180} src={assets.md_controller_image} width={180} />
+              <Image alt="Controller" className="size-40 object-contain" height={180} src={"/assets/md_controller_image.png"} width={180} />
             </div>
           </div>
         </div>

@@ -1,7 +1,9 @@
 'use client'
+import heart_icon from "@/assets/heart_icon.svg";
+import star_icon from "@/assets/star_icon.svg";
+import star_dull_icon from "@/assets/star_dull_icon.svg";
 
 import React from 'react'
-import { assets } from '@/assets/assets'
 import { getCloudinaryImageUrl } from '@/lib/cloudinaryImage';
 import Image from 'next/image';
 import { useAppContext } from '@/context/AppContext';
@@ -51,7 +53,6 @@ const ProductCard = ({ product, loadEagerly }) => {
                         height={400}
                         loading={loadEagerly ? 'eager' : 'lazy'}
                         sizes="(max-width: 639px) 50vw, (max-width: 1279px) 33vw, 240px"
-                        unoptimized
                     />
 
                     <button
@@ -63,7 +64,7 @@ const ProductCard = ({ product, loadEagerly }) => {
                     >
                         <Image
                             className="size-3.5 opacity-70"
-                            src={assets.heart_icon}
+                            src={heart_icon}
                             alt="heart_icon"
                         />
                     </button>
@@ -97,8 +98,10 @@ const ProductCard = ({ product, loadEagerly }) => {
                             <Image
                                 key={index}
                                 className="size-2.5"
-                                src={index < Math.floor(avgRating || 4.5) ? assets.star_icon : assets.star_dull_icon}
+                                src={index < Math.floor(avgRating || 4.5) ? star_icon : star_dull_icon}
                                 alt="star"
+                                width={10}
+                                height={10}
                             />
                         ))}
                     </div>

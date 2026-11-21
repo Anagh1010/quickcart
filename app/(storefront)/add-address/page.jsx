@@ -1,5 +1,5 @@
 'use client'
-import { assets } from "@/assets/assets";
+import my_location_image from "@/assets/my_location_image.svg";
 import Image from "next/image";
 import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
@@ -98,7 +98,7 @@ const AddAddress = () => {
                 </form>
                 <Image
                     className="md:mr-16 mt-16 md:mt-0"
-                    src={assets.my_location_image}
+                    src={my_location_image}
                     alt="my_location_image"
                 />
         </div>

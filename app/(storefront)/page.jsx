@@ -7,8 +7,6 @@ import PromotionBanner from "@/components/home/PromotionBanner";
 import NewsLetter from "@/components/NewsLetter";
 import { getHomeProducts } from "@/lib/homeProducts";
 
-export const dynamic = "force-dynamic";
-
 const Home = async () => {
   const products = await getHomeProducts();
 

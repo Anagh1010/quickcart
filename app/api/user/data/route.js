@@ -43,12 +43,15 @@ export async function GET(request) {
             }
         }
 
-        // Only log a session event once per 30 minutes per user
-        // AppContext retries on failure which would otherwise create duplicates
-        const alreadyLogged = await hasRecentAudit('user.session_started', userId, 30)
-        if (!alreadyLogged) {
-            await logAudit('user.session_started', 'user', userId)
-        }
+        // Fire-and-forget: audit logging must never hold the response open.
+        // AppContext retries on failure which would otherwise create duplicates.
+        void (async () => {
+            const alreadyLogged = await hasRecentAudit('user.session_started', userId, 30)
+            if (!alreadyLogged) {
+                await logAudit('user.session_started', 'user', userId)
+            }
+        })().catch((err) => console.error('[user/data] audit logging failed:', err))
+
         return NextResponse.json({success:true, user})
 
     } catch (error) {

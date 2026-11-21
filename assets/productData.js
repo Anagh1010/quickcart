@@ -1,5 +1,3 @@
-import { assets } from "./assets";
-
 export const products = [
   {
     id: 1,
@@ -7,7 +5,7 @@ export const products = [
     description: "Noise-cancellation, 40-hour battery",
     rating: 4.5,
     price: "$299.99",
-    imgSrc: assets.apple_earphone_image,
+    imgSrc: "/assets/apple_earphone_image.png",
   },
   {
     id: 2,
@@ -15,7 +13,7 @@ export const products = [
     description: "Noise Cancellation, 24-hour battery",
     rating: 4.5,
     price: "$329.99",
-    imgSrc: assets.bose_headphone_image,
+    imgSrc: "/assets/bose_headphone_image.png",
   },
   {
     id: 3,
@@ -23,7 +21,7 @@ export const products = [
     description: "Fitness Tracking, AMOLED Display",
     rating: 4.5,
     price: "$799.99",
-    imgSrc: assets.samsung_s23phone_image,
+    imgSrc: "/assets/samsung_s23phone_image.png",
   },
   {
     id: 4,
@@ -31,7 +29,7 @@ export const products = [
     description: "Noise Cancellation, 24-hour battery",
     rating: 4.5,
     price: "$349.99",
-    imgSrc: assets.venu_watch_image,
+    imgSrc: "/assets/venu_watch_image.png",
   },
   {
     id: 5,
@@ -39,7 +37,7 @@ export const products = [
     description: "Ultra-HD, 825GB SSD, Ray Graphics",
     rating: 4.5,
     price: "$499.99",
-    imgSrc: assets.apple_earphone_image,
+    imgSrc: "/assets/apple_earphone_image.png",
   },
   {
     id: 6,
@@ -47,7 +45,7 @@ export const products = [
     description: "45MP Sensor, 8K Video Recording",
     rating: 4.5,
     price: "$3,899.99",
-    imgSrc: assets.cannon_camera_image,
+    imgSrc: "/assets/cannon_camera_image.png",
   },
   {
     id: 7,
@@ -55,7 +53,7 @@ export const products = [
     description: "M2 Pro Chip, 16GB RAM, 512GB SSD",
     rating: 4.5,
     price: "$2,499.99",
-    imgSrc: assets.macbook_image,
+    imgSrc: "/assets/macbook_image.png",
   },
   {
     id: 8,
@@ -63,7 +61,7 @@ export const products = [
     description: "Noise-Cancellation, Hi-Res Audio",
     rating: 4.5,
     price: "$299.99",
-    imgSrc: assets.sony_airbuds_image,
+    imgSrc: "/assets/sony_airbuds_image.png",
   },
   {
     id: 9,
@@ -71,7 +69,7 @@ export const products = [
     description: "4K Ultra HD, Realistic, Built-In Speaker",
     rating: 4.5,
     price: "$1,499.99",
-    imgSrc: assets.projector_image,
+    imgSrc: "/assets/projector_image.png",
   },
   {
     id: 10,
@@ -79,7 +77,7 @@ export const products = [
     description: "Intel Core i9, RTX 4070, 16GB, 1TB",
     rating: 4.5,
     price: "$1,999.99",
-    imgSrc: assets.asus_laptop_image,
+    imgSrc: "/assets/asus_laptop_image.png",
   },
   {
     id: 11,
@@ -87,7 +85,7 @@ export const products = [
     description: "Noise-cancellation, 40-hour battery",
     rating: 4.5,
     price: "$299.99",
-    imgSrc: assets.apple_earphone_image,
+    imgSrc: "/assets/apple_earphone_image.png",
   },
   {
     id: 12,
@@ -95,7 +93,7 @@ export const products = [
     description: "Noise Cancellation, 24-hour battery",
     rating: 4.5,
     price: "$329.99",
-    imgSrc: assets.bose_headphone_image,
+    imgSrc: "/assets/bose_headphone_image.png",
   },
   {
     id: 13,
@@ -103,7 +101,7 @@ export const products = [
     description: "Fitness Tracking, AMOLED Display",
     rating: 4.5,
     price: "$799.99",
-    imgSrc: assets.samsung_s23phone_image,
+    imgSrc: "/assets/samsung_s23phone_image.png",
   },
   {
     id: 14,
@@ -111,7 +109,7 @@ export const products = [
     description: "Noise Cancellation, 24-hour battery",
     rating: 4.5,
     price: "$349.99",
-    imgSrc: assets.venu_watch_image,
+    imgSrc: "/assets/venu_watch_image.png",
   },
   {
     id: 15,
@@ -119,7 +117,7 @@ export const products = [
     description: "Ultra-HD, 825GB SSD, Ray Graphics",
     rating: 4.5,
     price: "$499.99",
-    imgSrc: assets.apple_earphone_image,
+    imgSrc: "/assets/apple_earphone_image.png",
   },
   {
     id: 16,
@@ -127,7 +125,7 @@ export const products = [
     description: "45MP Sensor, 8K Video Recording",
     rating: 4.5,
     price: "$3,899.99",
-    imgSrc: assets.cannon_camera_image,
+    imgSrc: "/assets/cannon_camera_image.png",
   },
   {
     id: 17,
@@ -135,7 +133,7 @@ export const products = [
     description: "M2 Pro Chip, 16GB RAM, 512GB SSD",
     rating: 4.5,
     price: "$2,499.99",
-    imgSrc: assets.macbook_image,
+    imgSrc: "/assets/macbook_image.png",
   },
   {
     id: 18,
@@ -143,7 +141,7 @@ export const products = [
     description: "Noise-Cancellation, Hi-Res Audio",
     rating: 4.5,
     price: "$299.99",
-    imgSrc: assets.sony_airbuds_image,
+    imgSrc: "/assets/sony_airbuds_image.png",
   },
   {
     id: 19,
@@ -151,7 +149,7 @@ export const products = [
     description: "4K Ultra HD, Realistic, Built-In Speaker",
     rating: 4.5,
     price: "$1,499.99",
-    imgSrc: assets.projector_image,
+    imgSrc: "/assets/projector_image.png",
   },
   {
     id: 20,
@@ -159,6 +157,6 @@ export const products = [
     description: "Intel Core i9, RTX 4070, 16GB, 1TB",
     rating: 4.5,
     price: "$1,999.99",
-    imgSrc: assets.asus_laptop_image,
+    imgSrc: "/assets/asus_laptop_image.png",
   },
 ];

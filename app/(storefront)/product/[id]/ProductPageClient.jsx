@@ -1,6 +1,7 @@
 "use client"
+import star_icon from "@/assets/star_icon.svg";
+import star_dull_icon from "@/assets/star_dull_icon.svg";
 import React, { useEffect, useState, useTransition } from "react";
-import { assets } from "@/assets/assets";
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
 import Loading from "@/components/Loading";
@@ -165,8 +166,10 @@ const Product = ({ initialProduct }) => {
                                     <Image
                                         key={index}
                                         className="size-3.5"
-                                        src={index < Math.floor(stats.avgRating || 4.5) ? assets.star_icon : assets.star_dull_icon}
+                                        src={index < Math.floor(stats.avgRating || 4.5) ? star_icon : star_dull_icon}
                                         alt="star"
+                                        width={14}
+                                        height={14}
                                     />
                                 ))}
                             </div>

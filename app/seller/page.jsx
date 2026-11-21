@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import { assets } from "@/assets/assets";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import axios from "axios";
@@ -78,7 +77,7 @@ const AddProduct = () => {
                 <Image
                   key={index}
                   className="max-w-24 cursor-pointer"
-                  src={files[index] ? URL.createObjectURL(files[index]) : assets.upload_area}
+                  src={files[index] ? URL.createObjectURL(files[index]) : "/assets/upload_area.png"}
                   alt=""
                   width={100}
                   height={100}

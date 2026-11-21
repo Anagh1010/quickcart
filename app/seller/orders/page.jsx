@@ -1,6 +1,6 @@
 'use client';
+import box_icon from "@/assets/box_icon.svg";
 import React, { useEffect, useState } from "react";
-import { assets, orderDummyData } from "@/assets/assets";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
@@ -53,7 +53,7 @@ const Orders = () => {
                             <div className="flex-1 flex gap-5 max-w-80">
                                 <Image
                                     className="max-w-16 max-h-16 object-cover"
-                                    src={assets.box_icon}
+                                    src={box_icon}
                                     alt="box_icon"
                                 />
                                 <p className="flex flex-col gap-3">

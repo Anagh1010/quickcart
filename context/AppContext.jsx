@@ -165,10 +165,13 @@ export const AppContextProvider = (props) => {
     const loggerInitRef = useRef(false)
 
     useEffect(() => {
-        if (pathname && pathname !== '/' && pathname !== '/all-products' && !pathname.startsWith('/product/')) {
+        const hasCartItems = Object.values(cartItems).some((quantity) => quantity > 0)
+        const needsClientCatalog = pathname && pathname !== '/' && pathname !== '/all-products' && !pathname.startsWith('/product/')
+
+        if (needsClientCatalog && hasCartItems && products.length === 0) {
             fetchProductData()
         }
-    }, [pathname])
+    }, [pathname, cartItems, products.length])
 
     useEffect(() => {
         if (user) {
