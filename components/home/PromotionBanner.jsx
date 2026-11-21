@@ -4,19 +4,43 @@ import { assets } from "@/assets/assets";
 import LayoutContainer from "@/components/layout/LayoutContainer";
 
 const PromotionBanner = () => (
-  <section className="mt-24">
+  <section className="py-12">
     <LayoutContainer size="wide">
-      <div className="overflow-hidden rounded-[32px] bg-gradient-to-br from-orange-50 via-amber-50 to-white px-5 py-10 sm:px-10 sm:py-14 xl:px-16">
-        <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto]">
+      <div className="overflow-hidden rounded-2xl md:rounded-3xl bg-[#141518] border border-stone-800 p-6 sm:p-10 md:p-12 text-white shadow-sm">
+        <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-orange-700">Gaming week</p>
-            <h2 className="mt-4 max-w-2xl text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">Level up your setup without slowing down</h2>
-            <p className="mt-4 max-w-lg text-base leading-7 text-gray-600">From immersive sound to precise controls, explore gear built for competitive play.</p>
-            <Link className="mt-8 inline-flex rounded-full bg-gray-950 px-7 py-3 text-sm font-semibold text-white transition hover:bg-gray-800" href="/all-products">Shop gaming</Link>
+            <div className="flex items-center gap-2">
+              <span className="rounded bg-[#fef08a] px-2 py-0.5 font-mono text-[10px] font-bold text-[#854d0e] border border-[#fde047]">
+                LIMITED DEAL
+              </span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-stone-400">
+                GAMING WEEK SPECIAL
+              </span>
+            </div>
+            <h2 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-4xl">
+              Level up your setup without slowing down
+            </h2>
+            <p className="mt-3 max-w-lg text-xs sm:text-sm leading-6 text-stone-300">
+              From immersive audio to high-precision controllers, discover gaming gear built for competitive play and ultimate comfort.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link
+                className="rounded-xl bg-[#f5c344] hover:bg-[#e6b02e] px-6 py-3 text-xs font-bold text-stone-950 transition shadow-sm"
+                href="/all-products?category=Console"
+              >
+                Shop gaming gear →
+              </Link>
+              <span className="text-xs text-stone-400">● 100% verified brand warranty</span>
+            </div>
           </div>
+
           <div className="flex items-center justify-center gap-4">
-            <Image alt="Soundbox" className="hidden w-36 rotate-[-8deg] rounded-3xl bg-white p-3 shadow-xl md:block" height={180} src={assets.jbl_soundbox_image} width={180} />
-            <Image alt="Controller" className="w-52 rotate-3 rounded-3xl bg-white p-4 shadow-xl sm:w-64" height={280} src={assets.md_controller_image} width={280} />
+            <div className="hidden rounded-2xl bg-[#1c1d22] border border-stone-800 p-4 md:block">
+              <Image alt="Soundbox" className="size-32 object-contain" height={140} src={assets.jbl_soundbox_image} width={140} />
+            </div>
+            <div className="rounded-2xl bg-[#1c1d22] border border-stone-800 p-5">
+              <Image alt="Controller" className="size-40 object-contain" height={180} src={assets.md_controller_image} width={180} />
+            </div>
           </div>
         </div>
       </div>

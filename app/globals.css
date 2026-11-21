@@ -1,40 +1,70 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: #fbf9f4;
+  --color-foreground: #141518;
+
+  --color-canvas: #fbf9f4;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f8f7f2;
+  --color-border-subtle: #e6e4dc;
+  --color-border-strong: #d2cfc4;
+
+  --color-dark-surface: #141518;
+  --color-dark-card: #18191d;
+  --color-dark-border: #282930;
 
   --grid-template-columns-auto: repeat(auto-fit, minmax(200px, 1fr));
 
-  /* Remap orange → cobalt blue */
-  --color-orange-50:  #eff6ff;
-  --color-orange-100: #dbeafe;
-  --color-orange-200: #bfdbfe;
-  --color-orange-300: #93c5fd;
-  --color-orange-400: #60a5fa;
-  --color-orange-500: #3b82f6;
-  --color-orange-600: #2563eb;
-  --color-orange-700: #1d4ed8;
-  --color-orange-800: #1e40af;
-  --color-orange-900: #1e3a8a;
-  --color-orange-950: #172554;
+  /* Remap orange → golden yellow / amber */
+  --color-orange-50:  #fefce8;
+  --color-orange-100: #fef9c3;
+  --color-orange-200: #fef08a;
+  --color-orange-300: #fde047;
+  --color-orange-400: #facc15;
+  --color-orange-500: #f5c344;
+  --color-orange-600: #e6b02e;
+  --color-orange-700: #ca8a04;
+  --color-orange-800: #a16207;
+  --color-orange-900: #854d0e;
+  --color-orange-950: #422006;
+
+  /* Remap blue → golden yellow accent or clean dark tone */
+  --color-blue-50:  #fefce8;
+  --color-blue-100: #fef9c3;
+  --color-blue-200: #fef08a;
+  --color-blue-300: #fde047;
+  --color-blue-400: #facc15;
+  --color-blue-500: #f5c344;
+  --color-blue-600: #e6b02e;
+  --color-blue-700: #ca8a04;
+  --color-blue-800: #a16207;
+  --color-blue-900: #854d0e;
+  --color-blue-950: #141518;
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-border-subtle, #e6e4dc);
+  }
+
+  body {
+    background-color: #fbf9f4;
+    color: #141518;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  button {
+    cursor: pointer;
   }
 }
 
@@ -43,17 +73,6 @@
     scroll-behavior: smooth;
   }
 }
-
-@layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-    button {
-      cursor: pointer;
-    }
-  }
 
 ::-webkit-scrollbar {
   display: none;

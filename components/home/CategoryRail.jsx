@@ -6,25 +6,58 @@ import { assets } from "@/assets/assets";
 import SectionHeading from "@/components/layout/SectionHeading";
 
 const categories = [
-  { filter: "Headphone,Earphone", image: assets.apple_earphone_image, name: "Audio", detail: "Headphones & buds" },
-  { filter: "Laptop", image: assets.macbook_image, name: "Computing", detail: "Laptops & accessories" },
-  { filter: "Console", image: assets.md_controller_image, name: "Gaming", detail: "Consoles & controls" },
-  { filter: "Camera", image: assets.cannon_camera_image, name: "Photography", detail: "Cameras & gear" },
-  { filter: "Watch", image: assets.venu_watch_image, name: "Wearables", detail: "Smart watches" },
+  { filter: "Headphone,Earphone", image: assets.apple_earphone_image, name: "Audio", slot: "CAT 01", count: "14 items" },
+  { filter: "Laptop", image: assets.macbook_image, name: "Computing", slot: "CAT 02", count: "28 items" },
+  { filter: "Console", image: assets.md_controller_image, name: "Gaming", slot: "CAT 03", count: "9 items" },
+  { filter: "Camera", image: assets.cannon_camera_image, name: "Photography", slot: "CAT 04", count: "6 items" },
+  { filter: "Watch", image: assets.venu_watch_image, name: "Wearables", slot: "CAT 05", count: "11 items" },
 ];
 
 const getCategoryHref = (filter) => `/all-products?category=${encodeURIComponent(filter)}&sort=newest`;
 
 const CategoryRail = () => (
-  <section className="py-16">
-    <SectionHeading description="Browse the categories customers explore most." eyebrow="Shop by category" title="Find it faster" />
-    <div className="mx-auto mt-10 grid w-full max-w-[1440px] gap-4 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-5 xl:px-12">
+  <section className="py-12">
+    <SectionHeading
+      eyebrow="SHOP BY CATEGORY"
+      title="Explore collections"
+      badge="TOP CATEGORIES"
+      description="Find the gear you need across computing, studio sound, gaming rigs, and wearables."
+    />
+    <div className="mx-auto mt-6 grid w-full max-w-[1440px] gap-4 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-5 xl:px-12">
       {categories.map((category) => (
-        <Link className="group relative flex h-48 items-end overflow-hidden rounded-3xl bg-gray-100 p-5 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-600/10" href={getCategoryHref(category.filter)} key={category.name}>
-          <Image alt="" className="absolute right-0 top-0 h-full w-full object-contain p-4 opacity-80 transition group-hover:scale-105" height={220} src={category.image} width={220} />
-          <div className="relative z-10 rounded-2xl bg-white/85 px-4 py-3 backdrop-blur">
-            <p className="font-semibold text-gray-900">{category.name}</p>
-            <p className="mt-1 text-xs text-gray-500">{category.detail}</p>
+        <Link
+          key={category.name}
+          href={getCategoryHref(category.filter)}
+          className="group flex flex-col justify-between rounded-2xl border border-[#e6e4dc] bg-white p-5 hover:border-stone-400 hover:shadow-xs transition duration-200"
+        >
+          {/* Category Slot Badge */}
+          <div className="flex items-center justify-between">
+            <span className="rounded-md bg-[#fef08a] px-2 py-0.5 font-mono text-[11px] font-bold text-[#854d0e] border border-[#fde047]">
+              {category.slot}
+            </span>
+            <span className="text-[11px] font-medium text-stone-500">{category.count}</span>
+          </div>
+
+          {/* Product Image */}
+          <div className="my-4 flex h-32 items-center justify-center rounded-xl bg-[#f8f7f2] p-3">
+            <Image
+              alt={category.name}
+              className="max-h-24 max-w-24 object-contain transition duration-200 group-hover:scale-105"
+              height={140}
+              src={category.image}
+              width={140}
+            />
+          </div>
+
+          {/* Title & Chevron */}
+          <div className="flex items-center justify-between border-t border-[#f0eee6] pt-3">
+            <div>
+              <p className="text-sm font-bold text-stone-900 group-hover:text-amber-800 transition">
+                {category.name}
+              </p>
+              <p className="text-[11px] text-stone-500">In stock & ready to ship</p>
+            </div>
+            <span className="text-stone-400 group-hover:text-stone-800 transition">→</span>
           </div>
         </Link>
       ))}

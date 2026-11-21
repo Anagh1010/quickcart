@@ -22,11 +22,20 @@ export async function GET(request) {
 
         console.log('Fetching orders for userId:', userId);
         
-        // First check if orders exist at all
-        const totalOrders = await Order.countDocuments({userId});
+        // Filter out unpaid/abandoned online orders
+        const query = {
+            userId,
+            status: { $ne: 'Payment Cancelled' },
+            $or: [
+                { paymentMethod: 'COD' },
+                { isPaid: true }
+            ]
+        };
+
+        const totalOrders = await Order.countDocuments(query);
         console.log(`Found ${totalOrders} orders for user ${userId}`);
 
-        const orders = await Order.find({userId})
+        const orders = await Order.find(query)
             .populate({
                 path: 'items.product',
                 model: 'product',

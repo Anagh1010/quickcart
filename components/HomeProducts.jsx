@@ -8,18 +8,23 @@ import LayoutContainer from "@/components/layout/LayoutContainer";
 
 const HomeProducts = ({ products }) => {
   return (
-    <section className="py-16">
+    <section className="py-12">
       <SectionHeading
+        eyebrow="FEATURED PRODUCTS"
+        title="Trending this week"
+        badge="TOP RATED"
+        description="Fresh arrivals and customer favorites backed by verified reviews and fast shipping."
         action={
-          <Link className="rounded-full border border-gray-200 px-6 py-3 text-sm font-medium text-gray-700 transition hover:border-blue-500 hover:text-blue-600" href="/all-products">
-            View all products
+          <Link
+            className="flex items-center gap-2 rounded-xl border border-[#e6e4dc] bg-white px-5 py-2.5 text-xs font-bold text-stone-800 hover:border-stone-400 hover:bg-stone-50 transition shadow-2xs"
+            href="/all-products"
+          >
+            <span>View all products</span>
+            <span className="text-stone-400">→</span>
           </Link>
         }
-        description="Fresh arrivals and customer favorites, updated continuously."
-        eyebrow="Popular right now"
-        title="Trending this week"
       />
-      <LayoutContainer size="wide">
+      <LayoutContainer size="wide" className="mt-6">
         <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {products.map((product, index) => (
             <ProductCard

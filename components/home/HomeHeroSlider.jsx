@@ -10,6 +10,7 @@ import { getCloudinaryImageUrl } from "@/lib/cloudinaryImage";
 const HomeHeroSlider = ({ products }) => {
   const router = useRouter();
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [copiedId, setCopiedId] = useState(false);
 
   const slides = useMemo(() => {
     const findProduct = (terms) => products.find((product) => terms.some((term) => product.name.toLowerCase().includes(term)));
@@ -17,71 +18,163 @@ const HomeHeroSlider = ({ products }) => {
     return [
       {
         id: "macbook",
-        eyebrow: "Exclusive deal · 40% off",
-        title: "Power meets elegance with MacBook Pro",
-        description: "Built for demanding creative work and all-day productivity.",
+        eyebrow: "FEATURED FLAGSHIP PRODUCT",
+        name: "MacBook Pro 16″ M3 Max",
+        code: "QC-MBP16-M3MAX",
+        tag1: "16.2″ Liquid Retina XDR",
+        tag2: "36GB Unified Memory",
+        tag3: "1TB Ultra-Fast SSD",
+        badge: "LIMITED TIME OFFER",
+        session: "Save 40% On MacBook Pro",
+        status: "● In stock for express delivery",
+        cta: "Shop MacBook Pro →",
         product: findProduct(["macbook", "pro 16"]),
         fallbackImage: assets.header_macbook_image,
-        theme: "from-blue-950 via-slate-900 to-gray-900",
       },
       {
         id: "playstation",
-        eyebrow: "Limited stock",
-        title: "Next-level gaming starts with PlayStation 5",
-        description: "Immersive worlds, faster loading, and responsive play.",
+        eyebrow: "NEXT-GEN GAMING RIG",
+        name: "PlayStation 5 Digital Edition",
+        code: "QC-PS5-DIGITAL",
+        tag1: "Ultra-High Speed SSD",
+        tag2: "Ray Tracing 4K 120Hz",
+        tag3: "DualSense Wireless",
+        badge: "SPECIAL PROMOTION",
+        session: "Next-Level Gaming Starts Here",
+        status: "● Limited stock available",
+        cta: "Shop PlayStation 5 →",
         product: findProduct(["playstation", "ps5"]),
         fallbackImage: assets.header_playstation_image,
-        theme: "from-indigo-950 via-blue-950 to-slate-900",
       },
       {
         id: "samsung",
-        eyebrow: "$100 off for a limited time",
-        title: "Galaxy S25 brings next-gen innovation home",
-        description: "A refined flagship experience in a compact everyday design.",
+        eyebrow: "FLAGSHIP SMARTPHONE",
+        name: "Samsung Galaxy S25 Ultra 5G",
+        code: "QC-S25-ULTRA",
+        tag1: "Dynamic AMOLED 2X",
+        tag2: "Snapdragon 8 Elite",
+        tag3: "200MP Quad Tele System",
+        badge: "FLASH DISCOUNT",
+        session: "$100 Instant Savings Today",
+        status: "● Same-day dispatch available",
+        cta: "Shop Galaxy S25 →",
         product: findProduct(["samsung", "s23", "s25"]),
         fallbackImage: assets.samsung_s23phone_image,
-        theme: "from-cyan-950 via-slate-900 to-gray-900",
       },
     ];
   }, [products]);
 
   useEffect(() => {
-    const interval = setInterval(() => setCurrentSlide((previous) => (previous + 1) % slides.length), 5000);
+    const interval = setInterval(() => setCurrentSlide((prev) => (prev + 1) % slides.length), 6000);
     return () => clearInterval(interval);
   }, [slides.length]);
 
-  const openProduct = (slide) => {
-    router.push(slide.product ? `/product/${slide.product._id}` : "/all-products");
+  const slide = slides[currentSlide];
+
+  const openProduct = (item) => {
+    router.push(item.product ? `/product/${item.product._id}` : "/all-products");
+  };
+
+  const copyCode = (code) => {
+    navigator.clipboard?.writeText(code);
+    setCopiedId(true);
+    setTimeout(() => setCopiedId(false), 2000);
   };
 
   return (
-    <section aria-label="Featured offers" className="pt-6 sm:pt-10">
+    <section aria-label="Featured Offers" className="pt-6 sm:pt-8">
       <LayoutContainer size="wide">
-        <div className="relative overflow-hidden rounded-[32px] bg-gray-950 shadow-2xl shadow-blue-950/15">
-          <div className="flex transition-transform duration-700 ease-out" style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
-            {slides.map((slide, index) => (
-              <div className={`grid min-w-full items-center gap-8 bg-gradient-to-br ${slide.theme} px-5 py-10 text-white sm:px-10 lg:grid-cols-[1.1fr_0.9fr] lg:py-14 xl:px-16`} key={slide.id}>
-                <div>
-                  <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.18em]">{slide.eyebrow}</span>
-                  <h1 className="mt-6 max-w-xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">{slide.title}</h1>
-                  <p className="mt-5 max-w-md text-base leading-7 text-white/70">{slide.description}</p>
-                  <div className="mt-8 flex flex-wrap items-center gap-3">
-                    <button className="rounded-full bg-white px-7 py-3 text-sm font-semibold text-gray-950 transition hover:bg-gray-200" onClick={() => openProduct(slide)}>Shop now</button>
-                    <button className="rounded-full border border-white/25 px-7 py-3 text-sm font-medium transition hover:bg-white/10" onClick={() => openProduct(slide)}>Explore deals</button>
-                  </div>
+        {/* Dark Hero Card Banner */}
+        <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-[#141518] text-white p-6 sm:p-8 md:p-10 border border-stone-800 shadow-sm">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            {/* Left Side: Product Profile */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+              {/* Avatar / Product Badge */}
+              <div className="relative size-24 sm:size-28 shrink-0 rounded-2xl bg-white p-2.5 shadow-md flex items-center justify-center overflow-hidden">
+                <Image
+                  src={getCloudinaryImageUrl(slide.product?.image?.[0] || slide.fallbackImage, 400)}
+                  alt={slide.name}
+                  width={200}
+                  height={200}
+                  priority
+                  className="size-full object-contain"
+                  unoptimized={Boolean(slide.product?.image?.[0])}
+                />
+              </div>
+
+              {/* Profile Details */}
+              <div className="space-y-2">
+                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-stone-400">
+                  {slide.eyebrow}
+                </p>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white">
+                  {slide.name}
+                </h1>
+
+                {/* SKU Code with Copy Icon */}
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs text-stone-300 font-semibold">{slide.code}</span>
+                  <button
+                    onClick={() => copyCode(slide.code)}
+                    className="rounded p-1 text-stone-400 hover:text-white hover:bg-stone-800 transition"
+                    title="Copy SKU"
+                  >
+                    <svg className="size-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                  </button>
+                  {copiedId && <span className="text-[10px] text-[#f5c344] font-medium">Copied!</span>}
                 </div>
-                <div className="flex justify-center">
-                  <div className="flex size-56 items-center justify-center rounded-[36px] bg-white/10 backdrop-blur-sm sm:size-72 lg:size-80">
-                    <Image alt={slide.title} className="max-h-44 max-w-44 object-contain sm:max-h-64 sm:max-w-64 lg:max-h-72 lg:max-w-72" height={400} loading={index === 0 ? undefined : "lazy"} priority={index === 0} src={getCloudinaryImageUrl(slide.product?.image?.[0] || slide.fallbackImage, 800)} unoptimized={Boolean(slide.product?.image?.[0])} width={400} />
-                  </div>
+
+                {/* Dark Translucent Pill Tags */}
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <span className="rounded-full border border-stone-700/80 bg-[#22242a] px-3 py-0.5 text-xs font-medium text-stone-300">
+                    {slide.tag1}
+                  </span>
+                  <span className="rounded-full border border-stone-700/80 bg-[#22242a] px-3 py-0.5 text-xs font-medium text-stone-300">
+                    {slide.tag2}
+                  </span>
+                  <span className="rounded-full border border-stone-700/80 bg-[#22242a] px-3 py-0.5 text-xs font-medium text-stone-300">
+                    {slide.tag3}
+                  </span>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Right Side: Promotion Action Box */}
+            <div className="flex flex-col gap-2 rounded-2xl bg-[#1c1d22] border border-stone-800 p-5 sm:min-w-[300px] shrink-0">
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">
+                {slide.badge}
+              </span>
+              <p className="text-base font-bold text-white">{slide.session}</p>
+              <div className="flex items-center gap-2 text-xs text-stone-400">
+                <span className="text-amber-400 text-xs">■</span>
+                <span>{slide.status}</span>
+              </div>
+              <button
+                onClick={() => openProduct(slide)}
+                className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-[#f5c344] hover:bg-[#e6b02e] py-3 px-6 text-sm font-bold text-stone-950 transition shadow-sm"
+              >
+                {slide.cta}
+              </button>
+            </div>
           </div>
-          <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-2">
-            {slides.map((slide, index) => (
-              <button aria-label={`Go to slide ${index + 1}`} className={`h-2 rounded-full transition-all ${currentSlide === index ? "w-8 bg-white" : "size-2 bg-white/40 hover:bg-white/70"}`} key={slide.id} onClick={() => setCurrentSlide(index)} />
-            ))}
+
+          {/* Slide Indicator Dots */}
+          <div className="mt-6 pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs text-stone-400">
+            <span className="font-mono text-[11px]">FEATURED {currentSlide + 1} OF {slides.length}</span>
+            <div className="flex items-center gap-2">
+              {slides.map((s, idx) => (
+                <button
+                  key={s.id}
+                  aria-label={`Slide ${idx + 1}`}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    currentSlide === idx ? "w-6 bg-[#f5c344]" : "w-2 bg-stone-700 hover:bg-stone-500"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </LayoutContainer>

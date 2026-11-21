@@ -2,54 +2,63 @@ import React from "react";
 import Link from "next/link";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
+import SectionHeading from "@/components/layout/SectionHeading";
 
-const products = [
+const collections = [
   {
     id: 1,
     image: assets.girl_with_headphone_image,
-    title: "Unparalleled Sound",
-    description: "Experience crystal-clear audio with premium headphones.",
+    code: "CAT AU-01",
+    title: "Unparalleled Studio Sound",
+    description: "High-fidelity audio monitors engineered for music production, gaming, and everyday listening.",
   },
   {
     id: 2,
     image: assets.girl_with_earphone_image,
-    title: "Stay Connected",
-    description: "Compact and stylish earphones for every occasion.",
+    code: "CAT AU-02",
+    title: "Active Noise-Cancelling Buds",
+    description: "Compact wireless earbuds for travel, workout sessions, and crystal-clear calls on the move.",
   },
   {
     id: 3,
     image: assets.boy_with_laptop_image,
-    title: "Power in Every Pixel",
-    description: "Shop the latest laptops for work, gaming, and more.",
+    code: "CAT PC-03",
+    title: "Pro Computing & Laptops",
+    description: "High-efficiency laptops and workstations tested for intensive creative workflows and coding.",
   },
 ];
 
 const FeaturedProduct = () => {
   return (
-    <section className="py-8">
-      <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 xl:px-12">
-        <div className="mb-10 max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-600">Featured collections</p>
-          <h2 className="mt-3 text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">Designed for how you live</h2>
-          <p className="mt-3 text-base leading-6 text-gray-500">Hand-picked experiences across sound, work, and everyday carry.</p>
-        </div>
-      </div>
+    <section className="py-12">
+      <SectionHeading
+        eyebrow="CURATED COLLECTIONS"
+        title="Designed for modern life"
+        badge="2026 EDITION"
+        description="Thoughtfully curated gear to elevate your desktop, audio experience, and everyday carry."
+      />
 
-      <div className="mx-auto grid w-full max-w-[1440px] grid-cols-1 gap-5 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 xl:px-12">
-        {products.map(({ id, image, title, description }) => (
-          <article key={id} className="group relative min-h-80 overflow-hidden rounded-[32px] bg-gray-900">
+      <div className="mx-auto mt-6 grid w-full max-w-[1440px] grid-cols-1 gap-5 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 xl:px-12">
+        {collections.map(({ id, image, code, title, description }) => (
+          <article key={id} className="group relative min-h-80 overflow-hidden rounded-2xl md:rounded-3xl bg-[#141518] border border-stone-800 shadow-sm">
             <Image
               fill
               src={image}
               alt={title}
-              className="object-cover transition duration-500 group-hover:scale-105"
+              className="object-cover opacity-80 transition duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/60 to-transparent p-7 pt-20 text-white">
-              <h3 className="text-xl font-semibold lg:text-2xl">{title}</h3>
-              <p className="mt-2 max-w-xs text-sm leading-6 text-white/75">{description}</p>
-              <Link className="mt-5 inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2.5 text-sm font-medium backdrop-blur transition hover:bg-white hover:text-gray-950" href="/all-products">
-                Shop collection
-                <Image alt="" className="size-3" height={12} src={assets.redirect_icon} width={12} />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#141518] via-[#141518]/80 to-transparent p-6 pt-20 text-white">
+              <span className="rounded bg-[#fef08a] px-2 py-0.5 font-mono text-[10px] font-bold text-[#854d0e] border border-[#fde047]">
+                {code}
+              </span>
+              <h3 className="mt-2 text-lg font-bold lg:text-xl text-white">{title}</h3>
+              <p className="mt-1 text-xs leading-5 text-stone-300">{description}</p>
+              <Link
+                className="mt-4 inline-flex items-center gap-2 rounded-xl bg-[#f5c344] hover:bg-[#e6b02e] px-4 py-2 text-xs font-bold text-stone-950 transition shadow-sm"
+                href="/all-products"
+              >
+                <span>Shop collection</span>
+                <span>→</span>
               </Link>
             </div>
           </article>

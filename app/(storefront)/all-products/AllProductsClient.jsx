@@ -3,229 +3,196 @@ import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
 import Loading from "@/components/Loading";
-
-const CATEGORIES = ["Earphone", "Headphone", "Watch", "Mobile", "Camera", "Laptop", "Console"];
+import { useAppContext } from "@/context/AppContext";
+import CatalogSidebar from "./CatalogSidebar";
 
 const AllProductsContent = ({ initialProducts }) => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { getCartCount } = useAppContext();
 
-    // Read initial filters from search parameters
-    const initialSearch = searchParams.get("search") || "";
-    const initialCategory = searchParams.get("category") || "";
-    const initialMinPrice = searchParams.get("minPrice") || "";
-    const initialMaxPrice = searchParams.get("maxPrice") || "";
-    const initialInStock = searchParams.get("inStock") === "true";
-    const initialSort = searchParams.get("sort") || "newest";
+  const initialSearch = searchParams.get("search") || "";
+  const initialCategory = searchParams.get("category") || "";
+  const initialMinPrice = searchParams.get("minPrice") || "";
+  const initialMaxPrice = searchParams.get("maxPrice") || "";
+  const initialInStock = searchParams.get("inStock") === "true";
+  const initialSort = searchParams.get("sort") || "newest";
 
-    const products = initialProducts;
+  const products = initialProducts;
+  const cartCount = getCartCount ? getCartCount() : 0;
 
-    // Filters state
-    const [selectedCategories, setSelectedCategories] = useState(
-        initialCategory ? initialCategory.split(",") : []
-    );
-    const [minPrice, setMinPrice] = useState(initialMinPrice);
-    const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
-    const [inStock, setInStock] = useState(initialInStock);
-    const [sort, setSort] = useState(initialSort);
+  const [searchInput, setSearchInput] = useState(initialSearch);
+  const [selectedCategories, setSelectedCategories] = useState(
+    initialCategory ? initialCategory.split(",") : []
+  );
+  const [minPrice, setMinPrice] = useState(initialMinPrice);
+  const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
+  const [inStock, setInStock] = useState(initialInStock);
+  const [sort, setSort] = useState(initialSort);
 
-    // Handle updating query parameters
-    const applyFilters = (updatedCategories, updatedMinPrice, updatedMaxPrice, updatedInStock, updatedSort) => {
-        const params = new URLSearchParams();
+  const applyFilters = (categories, minP, maxP, stock, sorting, search = searchInput) => {
+    const params = new URLSearchParams();
+    if (search && search.trim()) params.set("search", search.trim());
+    if (categories && categories.length > 0) params.set("category", categories.join(","));
+    if (minP) params.set("minPrice", minP);
+    if (maxP) params.set("maxPrice", maxP);
+    if (stock) params.set("inStock", "true");
+    if (sorting) params.set("sort", sorting);
+    router.push(`/all-products?${params.toString()}`, { scroll: false });
+  };
 
-        // Keep search parameter if it exists
-        const currentSearch = searchParams.get("search");
-        if (currentSearch) params.set("search", currentSearch);
+  const handleCategoryChange = (catName) => {
+    const nextCategories = selectedCategories.includes(catName)
+      ? selectedCategories.filter((c) => c !== catName)
+      : [...selectedCategories, catName];
+    setSelectedCategories(nextCategories);
+    applyFilters(nextCategories, minPrice, maxPrice, inStock, sort);
+  };
 
-        if (updatedCategories && updatedCategories.length > 0) {
-            params.set("category", updatedCategories.join(","));
-        }
-        if (updatedMinPrice) params.set("minPrice", updatedMinPrice);
-        if (updatedMaxPrice) params.set("maxPrice", updatedMaxPrice);
-        if (updatedInStock) params.set("inStock", "true");
-        if (updatedSort) params.set("sort", updatedSort);
+  const handlePriceChangeSubmit = (e) => {
+    e.preventDefault();
+    applyFilters(selectedCategories, minPrice, maxPrice, inStock, sort);
+  };
 
-        router.push(`/all-products?${params.toString()}`, { scroll: false });
-    };
+  const handleStockToggle = () => {
+    const nextInStock = !inStock;
+    setInStock(nextInStock);
+    applyFilters(selectedCategories, minPrice, maxPrice, nextInStock, sort);
+  };
 
-    const handleCategoryChange = (cat) => {
-        let nextCategories;
-        if (selectedCategories.includes(cat)) {
-            nextCategories = selectedCategories.filter((c) => c !== cat);
-        } else {
-            nextCategories = [...selectedCategories, cat];
-        }
-        setSelectedCategories(nextCategories);
-        applyFilters(nextCategories, minPrice, maxPrice, inStock, sort);
-    };
+  const handleSortChange = (e) => {
+    const nextSort = e.target.value;
+    setSort(nextSort);
+    applyFilters(selectedCategories, minPrice, maxPrice, inStock, nextSort);
+  };
 
-    const handlePriceChangeSubmit = (e) => {
-        e.preventDefault();
-        applyFilters(selectedCategories, minPrice, maxPrice, inStock, sort);
-    };
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    applyFilters(selectedCategories, minPrice, maxPrice, inStock, sort, searchInput);
+  };
 
-    const handleStockToggle = () => {
-        const nextInStock = !inStock;
-        setInStock(nextInStock);
-        applyFilters(selectedCategories, minPrice, maxPrice, nextInStock, sort);
-    };
+  const clearFilters = () => {
+    setSearchInput("");
+    setSelectedCategories([]);
+    setMinPrice("");
+    setMaxPrice("");
+    setInStock(false);
+    setSort("newest");
+    router.push("/all-products", { scroll: false });
+  };
 
-    const handleSortChange = (e) => {
-        const nextSort = e.target.value;
-        setSort(nextSort);
-        applyFilters(selectedCategories, minPrice, maxPrice, inStock, nextSort);
-    };
-
-    const clearFilters = () => {
-        setSelectedCategories([]);
-        setMinPrice("");
-        setMaxPrice("");
-        setInStock(false);
-        setSort("newest");
-        router.push("/all-products", { scroll: false });
-    };
-
-    return (
-        <div className="flex min-h-screen flex-col items-start gap-8 bg-gray-50 px-5 py-10 text-gray-800 sm:px-8 md:flex-row xl:px-12">
-                {/* 🛠️ Filters Sidebar */}
-                <aside className="w-full md:w-64 shrink-0 bg-white p-6 rounded-2xl border border-gray-200 shadow-xs">
-                    <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-                        <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
-                        <button 
-                            onClick={clearFilters}
-                            className="text-xs text-orange-600 hover:text-orange-700 font-medium transition cursor-pointer"
-                        >
-                            Reset All
-                        </button>
-                    </div>
-
-                    {/* 📦 Categories */}
-                    <div className="mb-6">
-                        <h3 className="text-sm font-medium text-gray-800 mb-3">Categories</h3>
-                        <div className="flex flex-col gap-2">
-                            {CATEGORIES.map((cat) => (
-                                <label key={cat} className="flex items-center gap-2.5 text-sm text-gray-600 hover:text-gray-900 cursor-pointer">
-                                    <input 
-                                        type="checkbox"
-                                        checked={selectedCategories.includes(cat)}
-                                        onChange={() => handleCategoryChange(cat)}
-                                        className="rounded-sm border-gray-300 text-orange-600 focus:ring-orange-500 w-4 h-4 cursor-pointer"
-                                    />
-                                    {cat}
-                                </label>
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* 💳 Price Range */}
-                    <div className="mb-6">
-                        <h3 className="text-sm font-medium text-gray-800 mb-3">Price Range ($)</h3>
-                        <form onSubmit={handlePriceChangeSubmit} className="flex items-center gap-2">
-                            <input 
-                                type="number" 
-                                placeholder="Min" 
-                                value={minPrice}
-                                onChange={(e) => setMinPrice(e.target.value)}
-                                className="w-full text-xs px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-gray-400 bg-gray-50 text-center"
-                            />
-                            <span className="text-gray-400 text-xs">to</span>
-                            <input 
-                                type="number" 
-                                placeholder="Max" 
-                                value={maxPrice}
-                                onChange={(e) => setMaxPrice(e.target.value)}
-                                className="w-full text-xs px-3 py-2 border border-gray-200 rounded-lg outline-none focus:border-gray-400 bg-gray-50 text-center"
-                            />
-                            <button 
-                                type="submit" 
-                                className="px-3 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg text-xs font-medium transition cursor-pointer"
-                            >
-                                Go
-                            </button>
-                        </form>
-                    </div>
-
-                    {/* 🟢 Stock Availability */}
-                    <div>
-                        <label className="flex items-center gap-3 cursor-pointer text-sm font-medium text-gray-800 select-none">
-                            <input 
-                                type="checkbox"
-                                checked={inStock}
-                                onChange={handleStockToggle}
-                                className="rounded-sm border-gray-300 text-orange-600 focus:ring-orange-500 w-4 h-4 cursor-pointer"
-                            />
-                            In-Stock Items Only
-                        </label>
-                    </div>
-                </aside>
-
-                {/* 🛍️ Products Catalog */}
-                <main className="w-full">
-                    {/* Header Controls */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 bg-white p-5 rounded-2xl border border-gray-200 shadow-xs">
-                        <div>
-                            <div className="flex flex-col items-start">
-                                <p className="text-xl font-semibold text-gray-900">
-                                    {initialSearch ? `Search results for "${initialSearch}"` : "All Products"}
-                                </p>
-                                <span className="text-xs text-gray-500 font-medium">
-                                    {products.length} {products.length === 1 ? "product" : "products"} found
-                                </span>
-                            </div>
-                        </div>
-
-                        {/* Sorting Dropdown */}
-                        <div className="flex items-center gap-2 self-start sm:self-center">
-                            <span className="text-xs text-gray-500 font-medium whitespace-nowrap">Sort By:</span>
-                            <select 
-                                value={sort} 
-                                onChange={handleSortChange}
-                                className="text-xs px-3 py-2 border border-gray-200 rounded-xl outline-none focus:border-gray-400 bg-gray-50 font-medium cursor-pointer text-gray-700"
-                            >
-                                <option value="newest">Newest Arrivals</option>
-                                <option value="price-asc">Price: Low to High</option>
-                                <option value="price-desc">Price: High to Low</option>
-                                <option value="rating">Top Rated</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    {/* Dynamic Loader & Error Messaging */}
-                    {products.length === 0 ? (
-                        <div className="text-center py-20 bg-white rounded-2xl border border-gray-200 p-8 shadow-xs">
-                            <h3 className="text-lg font-semibold text-gray-800 mb-2">No matching products found</h3>
-                            <p className="text-gray-500 text-xs max-w-sm mx-auto">
-                                Try adjusting your filter choices, search criteria, or clear the price range limits to discover other available products.
-                            </p>
-                            <button 
-                                onClick={clearFilters}
-                                className="mt-5 px-5 py-2.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-semibold shadow-md transition cursor-pointer"
-                            >
-                                Clear All Filters
-                            </button>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 pb-14 w-full">
-                            {products.map((product, index) => (
-                                <ProductCard key={product._id} product={product} loadEagerly={false} />
-                            ))}
-                        </div>
-                    )}
-                </main>
-        </div>
-    );
-};
-
-const AllProducts = ({ initialProducts }) => {
-    return (
-        <Suspense fallback={
-            <div className="flex justify-center items-center h-screen bg-gray-50">
-                <Loading />
+  return (
+    <div className="min-h-screen bg-[#fbf9f4] px-5 py-8 text-stone-900 sm:px-8 xl:px-12">
+      {/* Top Search & Filter Bar (Matching Screenshot 2 Style) */}
+      <div className="mx-auto max-w-[1440px] mb-8">
+        <div className="flex flex-col sm:flex-row items-center gap-4 rounded-2xl border border-[#e6e4dc] bg-white p-4 shadow-2xs">
+          <form onSubmit={handleSearchSubmit} className="flex flex-1 items-center gap-3 w-full">
+            <svg className="size-4 text-stone-400 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="search"
+              placeholder="Search products by name, code or category..."
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+              className="w-full bg-transparent text-xs text-stone-900 outline-none placeholder:text-stone-400"
+            />
+            <kbd className="hidden sm:inline-block rounded border border-stone-200 bg-stone-100 px-2 py-0.5 text-[10px] font-mono text-stone-500">
+              /
+            </kbd>
+          </form>
+          <div className="flex items-center gap-4 shrink-0 w-full sm:w-auto justify-between sm:justify-end border-t sm:border-t-0 pt-2 sm:pt-0 border-[#eceae3]">
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-stone-700 select-none">
+              <input
+                type="checkbox"
+                checked={inStock}
+                onChange={handleStockToggle}
+                className="size-4 rounded border-stone-300 accent-[#f5c344] cursor-pointer"
+              />
+              Available only
+            </label>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-medium text-stone-500">Sort:</span>
+              <select
+                value={sort}
+                onChange={handleSortChange}
+                className="rounded-xl border border-stone-300 bg-[#f8f7f2] px-3 py-1.5 text-xs font-semibold text-stone-800 outline-none"
+              >
+                <option value="newest">Newest</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+              </select>
             </div>
-        }>
-            <AllProductsContent initialProducts={initialProducts} />
-        </Suspense>
-    );
+          </div>
+        </div>
+      </div>
+
+      {/* Main Grid: Left Panel & Right Catalog */}
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-8 md:flex-row items-start">
+        <CatalogSidebar
+          cartCount={cartCount}
+          router={router}
+          clearFilters={clearFilters}
+          selectedCategories={selectedCategories}
+          handleCategoryChange={handleCategoryChange}
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          handlePriceChangeSubmit={handlePriceChangeSubmit}
+        />
+
+        {/* Right Side: Products Catalog */}
+        <main className="w-full flex-1">
+          <div className="flex items-center justify-between rounded-2xl border border-[#e6e4dc] bg-white p-4 shadow-2xs mb-6">
+            <div className="flex items-center gap-3">
+              <h1 className="text-base font-bold text-stone-900">
+                {initialSearch ? `Search results for "${initialSearch}"` : "All Products"}
+              </h1>
+              <span className="rounded-full bg-[#fef08a] px-2.5 py-0.5 font-mono text-[10px] font-bold text-[#854d0e] border border-[#fde047]">
+                ✓ {products.length} {products.length === 1 ? "ITEM" : "ITEMS"} AVAILABLE
+              </span>
+            </div>
+            <p className="text-xs text-stone-500 hidden sm:block">Genuine Products · Fast Delivery</p>
+          </div>
+
+          {products.length === 0 ? (
+            <div className="rounded-2xl border border-[#e6e4dc] bg-white p-12 text-center shadow-2xs">
+              <h2 className="text-base font-bold text-stone-900">No products found</h2>
+              <p className="mt-1 text-xs text-stone-500 max-w-sm mx-auto">
+                Try loosening your filter parameters, resetting price limits, or exploring other categories.
+              </p>
+              <button
+                onClick={clearFilters}
+                className="mt-4 rounded-xl bg-[#f5c344] hover:bg-[#e6b02e] px-5 py-2.5 text-xs font-bold text-stone-950 transition"
+              >
+                Clear all filters
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 pb-16">
+              {products.map((product) => (
+                <ProductCard key={product._id} product={product} loadEagerly={false} />
+              ))}
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  );
 };
+
+const AllProducts = ({ initialProducts }) => (
+  <Suspense
+    fallback={
+      <div className="flex h-screen items-center justify-center bg-[#fbf9f4]">
+        <Loading />
+      </div>
+    }
+  >
+    <AllProductsContent initialProducts={initialProducts} />
+  </Suspense>
+);
 
 export default AllProducts;
