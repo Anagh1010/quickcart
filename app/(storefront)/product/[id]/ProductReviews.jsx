@@ -1,6 +1,7 @@
 "use client";
 import star_icon from "@/assets/star_icon.svg";
 import star_dull_icon from "@/assets/star_dull_icon.svg";
+import { getClerkAvatarUrl } from "@/lib/clerkAvatarUrl";
 
 import React from "react";
 import Image from "next/image";
@@ -124,11 +125,12 @@ const ProductReviews = ({
                 <div className="flex items-center gap-3 mb-1.5">
                   {rev.userImage ? (
                     <Image
-                      src={rev.userImage}
+                      src={getClerkAvatarUrl(rev.userImage)}
                       alt="avatar"
                       className="size-7 rounded-full border border-stone-200"
                       width={28}
                       height={28}
+                      unoptimized
                     />
                   ) : (
                     <div className="flex size-7 items-center justify-center rounded-full bg-[#fef08a] text-[11px] font-bold text-[#854d0e]">

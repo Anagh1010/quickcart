@@ -72,11 +72,13 @@ const Footer = () => (
 
       <div className="flex flex-col items-center justify-between gap-3 pt-6 text-[11px] text-stone-500 sm:flex-row">
         <p>© {new Date().getFullYear()} QuickCart Inc. All rights reserved.</p>
-        <p className="flex items-center gap-1.5 font-medium text-stone-400">
-          <span>Safe & Secure Checkout</span>
-          <span className="size-1 rounded-full bg-[#f5c344]"></span>
-          <span>Fast Doorstep Delivery</span>
-        </p>
+        <Link
+          className="inline-flex items-center gap-2.5 text-sm font-medium text-stone-300 transition hover:text-white"
+          href="/status"
+        >
+          <span className="size-2.5 rounded-full bg-emerald-500" aria-hidden="true" />
+          Website status
+        </Link>
       </div>
     </LayoutContainer>
   </footer>

@@ -44,6 +44,7 @@ const FeaturedProduct = () => {
               fill
               src={image}
               alt={title}
+              sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(50vw - 2.625rem), (max-width: 1279px) calc(33.333vw - 2.167rem), (max-width: 1439px) calc(33.333vw - 2.833rem), 27.2rem"
               className="object-cover opacity-80 transition duration-500 group-hover:scale-105"
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#141518] via-[#141518]/80 to-transparent p-6 pt-20 text-white">
