@@ -31,6 +31,7 @@ const ManageCoupons = () => {
                 toast.error(data.message);
             }
         } catch (error) {
+            console.error('[seller/coupons] Failed to fetch:', error);
             toast.error(error.message);
         } finally {
             setLoading(false);
@@ -65,12 +66,11 @@ const ManageCoupons = () => {
 
             if (data.success) {
                 toast.success("Coupon code created successfully!");
-                // Clear form fields
                 setCode("");
                 setDiscountValue("");
                 setMinCartAmount("");
                 setExpiryDate("");
-                fetchCoupons(); // Refresh lists
+                fetchCoupons();
             } else {
                 toast.error(data.message);
             }
@@ -91,7 +91,7 @@ const ManageCoupons = () => {
             });
             if (data.success) {
                 toast.success("Coupon deleted successfully!");
-                fetchCoupons(); // Refresh lists
+                fetchCoupons();
             } else {
                 toast.error(data.message);
             }
@@ -101,40 +101,41 @@ const ManageCoupons = () => {
     };
 
     return (
-        <div className="flex-1 min-h-screen flex flex-col justify-between bg-gray-50 text-gray-800">
+        <div className="flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900">
             {loading ? (
                 <Loading />
             ) : (
                 <div className="w-full md:p-10 p-4 max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    {/* Header Banner */}
                     <div className="lg:col-span-3">
-                        <h2 className="text-2xl font-semibold text-gray-950">Promotional Coupons</h2>
-                        <p className="text-xs text-gray-500 font-medium">Create and manage marketing promo codes for your buyers.</p>
+                        <h2 className="text-2xl font-bold tracking-tight text-stone-950">Promotional Coupons</h2>
+                        <p className="text-xs text-stone-500 font-medium mt-1">Create and manage marketing promo codes for your buyers.</p>
                     </div>
 
-                    {/* Left Frame: Create Coupon Form Card */}
-                    <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-xs h-fit">
-                        <h3 className="text-lg font-bold text-gray-950 mb-4 pb-2 border-b border-gray-100">Launch Coupon</h3>
+                    {/* Create Coupon Form */}
+                    <div className="bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs h-fit">
+                        <h3 className="text-sm font-bold text-stone-950 mb-4 pb-2 border-b border-stone-100 uppercase tracking-wider">
+                            Launch Coupon
+                        </h3>
                         
-                        <form onSubmit={handleCreateCouponSubmit} className="space-y-4 text-xs font-semibold text-gray-500">
+                        <form onSubmit={handleCreateCouponSubmit} className="space-y-4 text-xs font-semibold text-stone-500">
                             <div>
-                                <label className="block text-gray-400 mb-1.5 uppercase tracking-wider">Coupon Code</label>
+                                <label className="block text-stone-400 mb-1.5 uppercase tracking-wider text-[10px]">Coupon Code</label>
                                 <input 
                                     type="text" 
                                     placeholder="E.g., SAVE20, FREESHIP"
                                     value={code}
                                     onChange={(e) => setCode(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl outline-none focus:border-gray-400 bg-white font-medium text-gray-800 uppercase"
+                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 uppercase text-xs"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-gray-400 mb-1.5 uppercase tracking-wider">Discount Type</label>
+                                <label className="block text-stone-400 mb-1.5 uppercase tracking-wider text-[10px]">Discount Type</label>
                                 <select 
                                     value={discountType} 
                                     onChange={(e) => setDiscountType(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl outline-none focus:border-gray-400 bg-white font-medium text-gray-800 cursor-pointer"
+                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 cursor-pointer text-xs"
                                 >
                                     <option value="percentage">Percentage Discount (%)</option>
                                     <option value="flat">Flat Dollar Discount ($)</option>
@@ -142,37 +143,37 @@ const ManageCoupons = () => {
                             </div>
 
                             <div>
-                                <label className="block text-gray-400 mb-1.5 uppercase tracking-wider">Discount Value</label>
+                                <label className="block text-stone-400 mb-1.5 uppercase tracking-wider text-[10px]">Discount Value</label>
                                 <input 
                                     type="number" 
                                     placeholder={discountType === "percentage" ? "Value (e.g. 20 for 20%)" : "Value (e.g. 15 for $15)"}
                                     value={discountValue}
                                     onChange={(e) => setDiscountValue(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl outline-none focus:border-gray-400 bg-white font-medium text-gray-800"
+                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 text-xs"
                                     min="1"
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-gray-400 mb-1.5 uppercase tracking-wider">Min Purchase Threshold ({currency})</label>
+                                <label className="block text-stone-400 mb-1.5 uppercase tracking-wider text-[10px]">Min Purchase Threshold ({currency})</label>
                                 <input 
                                     type="number" 
                                     placeholder="E.g., 50 (0 for no limit)"
                                     value={minCartAmount}
                                     onChange={(e) => setMinCartAmount(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl outline-none focus:border-gray-400 bg-white font-medium text-gray-800"
+                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 text-xs"
                                     min="0"
                                 />
                             </div>
 
                             <div>
-                                <label className="block text-gray-400 mb-1.5 uppercase tracking-wider">Expiration Date</label>
+                                <label className="block text-stone-400 mb-1.5 uppercase tracking-wider text-[10px]">Expiration Date</label>
                                 <input 
                                     type="date"
                                     value={expiryDate}
                                     onChange={(e) => setExpiryDate(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-gray-200 rounded-xl outline-none focus:border-gray-400 bg-white font-medium text-gray-800 cursor-pointer"
+                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 cursor-pointer text-xs"
                                     required
                                 />
                             </div>
@@ -180,37 +181,39 @@ const ManageCoupons = () => {
                             <button 
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full py-3.5 bg-orange-600 hover:bg-orange-700 text-white rounded-xl text-xs font-bold transition shadow-md cursor-pointer disabled:opacity-50 mt-2"
+                                className="w-full py-3 bg-[#f5c344] hover:bg-[#e6b02e] text-stone-900 rounded-xl text-xs font-bold transition shadow-2xs cursor-pointer disabled:opacity-50 mt-2"
                             >
                                 {isSubmitting ? "Creating..." : "Create Coupon"}
                             </button>
                         </form>
                     </div>
 
-                    {/* Right Frame: Existing Coupon List Table */}
-                    <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-gray-200 shadow-xs h-fit">
-                        <h3 className="text-lg font-bold text-gray-950 mb-4 pb-2 border-b border-gray-100">Active Coupons</h3>
+                    {/* Existing Coupon List Table */}
+                    <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs h-fit">
+                        <h3 className="text-sm font-bold text-stone-950 mb-4 pb-2 border-b border-stone-100 uppercase tracking-wider">
+                            Active Coupons
+                        </h3>
 
-                        <div className="w-full overflow-hidden rounded-xl border border-gray-100">
+                        <div className="w-full overflow-hidden rounded-xl border border-stone-100">
                             <table className="table-fixed w-full text-xs text-left">
-                                <thead className="bg-gray-50 border-b border-gray-100 text-gray-800">
+                                <thead className="bg-[#fcfbf7] border-b border-stone-100 text-stone-800">
                                     <tr>
-                                        <th className="px-4 py-3 font-semibold w-24">Code</th>
-                                        <th className="px-4 py-3 font-semibold">Value</th>
-                                        <th className="px-4 py-3 font-semibold">Min Spend</th>
-                                        <th className="px-4 py-3 font-semibold max-sm:hidden">Expires</th>
-                                        <th className="px-4 py-3 font-semibold w-20 text-center">Action</th>
+                                        <th className="px-4 py-3 font-bold uppercase tracking-wider text-stone-400 w-24">Code</th>
+                                        <th className="px-4 py-3 font-bold uppercase tracking-wider text-stone-400">Value</th>
+                                        <th className="px-4 py-3 font-bold uppercase tracking-wider text-stone-400">Min Spend</th>
+                                        <th className="px-4 py-3 font-bold uppercase tracking-wider text-stone-400 max-sm:hidden">Expires</th>
+                                        <th className="px-4 py-3 font-bold uppercase tracking-wider text-stone-400 w-20 text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody className="text-gray-600 divide-y divide-gray-100">
+                                <tbody className="text-stone-600 divide-y divide-stone-100">
                                     {coupons.length === 0 ? (
                                         <tr>
-                                            <td colSpan="5" className="text-center py-8 italic text-gray-400">No promo coupons available yet.</td>
+                                            <td colSpan="5" className="text-center py-8 italic text-stone-400">No promo coupons available yet.</td>
                                         </tr>
                                     ) : (
                                         coupons.map((coupon) => (
-                                            <tr key={coupon._id} className="hover:bg-gray-50/50 transition">
-                                                <td className="px-4 py-3 font-bold text-orange-600 uppercase">{coupon.code}</td>
+                                            <tr key={coupon._id} className="hover:bg-stone-50/60 transition">
+                                                <td className="px-4 py-3 font-bold text-amber-800 uppercase">{coupon.code}</td>
                                                 <td className="px-4 py-3 font-medium">
                                                     {coupon.discountType === "percentage" 
                                                         ? `${coupon.discountValue}% Off` 
@@ -221,7 +224,7 @@ const ManageCoupons = () => {
                                                 <td className="px-4 py-3 text-center">
                                                     <button 
                                                         onClick={() => handleDeleteCoupon(coupon._id)}
-                                                        className="px-2.5 py-1.5 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 rounded-lg text-[10px] font-bold cursor-pointer transition"
+                                                        className="px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 text-rose-700 rounded-lg text-[10px] font-bold cursor-pointer transition"
                                                     >
                                                         Delete
                                                     </button>

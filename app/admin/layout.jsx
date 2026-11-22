@@ -22,11 +22,11 @@ export default function AdminLayout({ children }) {
     }
 
     return (
-        <div>
+        <div className='min-h-screen bg-[#fbf9f4]'>
             <AdminNavbar />
             <div className='flex w-full'>
                 <AdminSidebar />
-                <main className='flex-1 overflow-auto'>
+                <main className='flex-1 overflow-auto bg-[#fbf9f4]'>
                     {children}
                 </main>
             </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LayoutContainer from "./LayoutContainer";
+import BrandLogo from "@/components/common/BrandLogo";
 
 const companyLinks = [
   { label: "Shop All Products", href: "/all-products" },
@@ -18,15 +19,7 @@ const Footer = () => (
     <LayoutContainer size="wide">
       <div id="contact" className="grid gap-10 border-b border-stone-800 pb-12 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div className="max-w-sm space-y-4">
-          <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-xl bg-white text-stone-900 font-bold text-sm">
-              <span className="text-[#f5c344]">Q</span>C
-            </div>
-            <div>
-              <p className="text-base font-bold text-white leading-tight">QuickCart</p>
-              <p className="text-[10px] font-bold tracking-widest text-stone-400 uppercase">PREMIUM TECH STORE</p>
-            </div>
-          </div>
+          <BrandLogo variant="dark" />
           <p className="text-xs leading-6 text-stone-400">
             A modern commerce platform offering curated electronics, transparent pricing, guaranteed authenticity, and express delivery.
           </p>

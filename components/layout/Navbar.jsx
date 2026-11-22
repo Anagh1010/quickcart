@@ -12,6 +12,7 @@ import { useClerk, UserButton } from "@clerk/nextjs";
 import { useAppContext } from "@/context/AppContext";
 import LayoutContainer from "./LayoutContainer";
 import MobileMenu from "./MobileMenu";
+import BrandLogo from "@/components/common/BrandLogo";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -50,19 +51,7 @@ const Navbar = () => {
       <LayoutContainer size="wide">
         <nav aria-label="Main navigation" className="flex h-16 items-center justify-between gap-4 py-2">
           {/* QuickCart Brand Header Lockup */}
-          <div className="flex items-center gap-3 cursor-pointer select-none" onClick={goHome}>
-            <div className="flex size-9 items-center justify-center rounded-xl bg-stone-900 text-white shadow-2xs font-bold text-sm">
-              <span className="text-[#f5c344]">Q</span>C
-            </div>
-            <div className="flex flex-col">
-              <span className="text-base font-bold tracking-tight text-stone-900 leading-tight">
-                QuickCart
-              </span>
-              <span className="text-[10px] font-bold tracking-[0.2em] text-stone-500 uppercase">
-                PREMIUM TECH STORE
-              </span>
-            </div>
-          </div>
+          <BrandLogo onClick={goHome} />
 
           {/* Tab Navigation with Gold Active Bar */}
           <div className="hidden items-center gap-7 lg:flex">
@@ -138,15 +127,6 @@ const Navbar = () => {
               </button>
             )}
 
-            {/* Moon Icon for Theme Style */}
-            <button
-              aria-label="Theme mode"
-              className="hidden sm:flex size-9 items-center justify-center rounded-xl border border-[#e6e4dc] bg-white text-stone-600 hover:text-stone-900 hover:bg-stone-50"
-            >
-              <svg className="size-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-              </svg>
-            </button>
 
             {/* User Profile or Sign in / Sign out */}
             {user ? (

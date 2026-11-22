@@ -8,6 +8,9 @@ export async function GET(request){
     try {
         
         const { userId } = getAuth(request)
+        if (!userId) {
+            return NextResponse.json({ success: false, message: "User not authenticated" }, { status: 401 })
+        }
 
         await connectDB()
 

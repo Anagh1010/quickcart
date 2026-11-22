@@ -8,7 +8,10 @@ import { logAudit } from '@/lib/audit'
 export async function POST(request) {
     try {
         
-        const  { userId } = getAuth(request)
+        const { userId } = getAuth(request)
+        if (!userId) {
+            return NextResponse.json({ success: false, message: "User not authenticated" }, { status: 401 })
+        }
         
         const { cartData } = await request.json()
 

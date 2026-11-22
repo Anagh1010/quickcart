@@ -28,6 +28,8 @@
     "tailwindcss": "^4.2.2"
   },
   "overrides": {
-    "postcss": "8.5.10"
+    "postcss": "8.5.33",
+    "@opentelemetry/auto-instrumentations-node": "^0.83.1",
+    "zod": "^4.6.7"
   }
 }

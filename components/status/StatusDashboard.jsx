@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import BrandLogo from "@/components/common/BrandLogo";
 
 const REFRESH_INTERVAL_MS = 60_000;
 
@@ -102,15 +103,7 @@ export default function StatusDashboard() {
     <div className="min-h-screen bg-[#f8f8f5] text-stone-950">
       <header className="border-b border-stone-200 bg-[#f8f8f5]">
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8">
-          <Link href="/" className="flex items-center gap-3" aria-label="QuickCart home">
-            <span className="flex size-10 items-center justify-center rounded-full border border-stone-300 bg-white text-sm font-bold">
-              <span className="text-amber-600">Q</span>C
-            </span>
-            <span>
-              <span className="block text-sm font-bold leading-tight">QuickCart</span>
-              <span className="mt-0.5 block text-[10px] font-semibold tracking-[0.16em] text-stone-500">PREMIUM TECH STORE</span>
-            </span>
-          </Link>
+          <BrandLogo href="/" />
           <Link href="/all-products" className="rounded-xl bg-stone-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-stone-800">
             Shop
           </Link>

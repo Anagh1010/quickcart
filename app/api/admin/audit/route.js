@@ -123,3 +123,30 @@ export async function GET(request) {
         return NextResponse.json({ success: false, message: error.message }, { status: 500 })
     }
 }
+
+export async function DELETE(request) {
+    try {
+        const { userId } = getAuth(request)
+        if (!userId || !(await authAdmin(userId))) {
+            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 403 })
+        }
+
+        await connectDB()
+
+        const { searchParams } = new URL(request.url)
+        const all = searchParams.get('all') === 'true'
+        const days = searchParams.get('days')
+
+        let query = {}
+        if (!all && days) {
+            const daysNum = parseInt(days)
+            const cutoff = new Date(Date.now() - daysNum * 24 * 60 * 60 * 1000)
+            query = { createdAt: { $lt: cutoff } }
+        }
+
+        const result = await AuditLog.deleteMany(query)
+        return NextResponse.json({ success: true, deleted: result.deletedCount })
+    } catch (error) {
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 })
+    }
+}

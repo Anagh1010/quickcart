@@ -21,7 +21,7 @@ export async function DELETE(request) {
         const productId = searchParams.get('id');
 
         if (!productId) {
-            return NextResponse.json({ success: false, message: 'Missing product id' });
+            return NextResponse.json({ success: false, message: 'Missing product id' }, { status: 400 });
         }
 
         await connectDB();
@@ -29,7 +29,7 @@ export async function DELETE(request) {
         // Verify product belongs to this seller before deleting
         const product = await Product.findOne({ _id: productId, userId });
         if (!product) {
-            return NextResponse.json({ success: false, message: 'Product not found or unauthorized' });
+            return NextResponse.json({ success: false, message: 'Product not found or unauthorized' }, { status: 404 });
         }
 
         const snapshot = { name: product.name, category: product.category, price: product.price, offerPrice: product.offerPrice, stock: product.stock }
@@ -47,6 +47,7 @@ export async function DELETE(request) {
 
         return NextResponse.json({ success: true, message: 'Product deleted successfully' });
     } catch (error) {
-        return NextResponse.json({ success: false, message: error.message });
+        await logError('/api/product/delete', error, '', {}, 'error', 'api', 500);
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 }

@@ -57,10 +57,17 @@ export async function DELETE(request) {
         await connectDB()
 
         const { searchParams } = new URL(request.url)
-        const days = parseInt(searchParams.get('days') || '30')
-        const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
+        const all = searchParams.get('all') === 'true'
+        const days = searchParams.get('days')
 
-        const result = await ErrorLog.deleteMany({ createdAt: { $lt: cutoff } })
+        let query = {}
+        if (!all && days) {
+            const daysNum = parseInt(days)
+            const cutoff = new Date(Date.now() - daysNum * 24 * 60 * 60 * 1000)
+            query = { createdAt: { $lt: cutoff } }
+        }
+
+        const result = await ErrorLog.deleteMany(query)
         return NextResponse.json({ success: true, deleted: result.deletedCount })
     } catch (error) {
         return NextResponse.json({ success: false, message: error.message }, { status: 500 })

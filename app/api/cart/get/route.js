@@ -8,6 +8,9 @@ import { logAudit, hasRecentAudit } from '@/lib/audit'
 export async function GET(request) {
     try {
         const { userId } = getAuth(request)
+        if (!userId) {
+            return NextResponse.json({ success: true, cartItems: {} })
+        }
 
         await connectDB()
         const user = await User.findById(userId)

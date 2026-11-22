@@ -35,7 +35,7 @@ export async function POST(request) {
         const stock = formData.get('stock');
 
         if (!productId) {
-            return NextResponse.json({ success: false, message: 'Missing product ID' });
+            return NextResponse.json({ success: false, message: 'Missing product ID' }, { status: 400 });
         }
 
         await connectDB();
@@ -43,7 +43,7 @@ export async function POST(request) {
         // Verify product belongs to this seller before editing
         const product = await Product.findOne({ _id: productId, userId });
         if (!product) {
-            return NextResponse.json({ success: false, message: 'Product not found or unauthorized' });
+            return NextResponse.json({ success: false, message: 'Product not found or unauthorized' }, { status: 404 });
         }
 
         // Get array of existing image URLs that the seller wants to keep
@@ -81,7 +81,7 @@ export async function POST(request) {
         const finalImages = [...existingImages, ...newImageUrls];
 
         if (finalImages.length === 0) {
-            return NextResponse.json({ success: false, message: 'At least one product image is required' });
+            return NextResponse.json({ success: false, message: 'At least one product image is required' }, { status: 400 });
         }
 
         const before = { name: product.name, category: product.category, price: product.price, offerPrice: product.offerPrice, stock: product.stock, imageCount: product.image?.length || 0 }
@@ -108,6 +108,7 @@ export async function POST(request) {
 
     } catch (error) {
         console.error("Product edit error:", error);
-        return NextResponse.json({ success: false, message: error.message });
+        await logError('/api/product/edit', error, '', {}, 'error', 'api', 500);
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 }

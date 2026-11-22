@@ -19,7 +19,7 @@ export async function POST(request) {
         const { productId, stock } = await request.json();
 
         if (!productId || stock === undefined || isNaN(Number(stock))) {
-            return NextResponse.json({ success: false, message: 'invalid input parameters' });
+            return NextResponse.json({ success: false, message: 'invalid input parameters' }, { status: 400 });
         }
 
         await connectDB();
@@ -27,7 +27,7 @@ export async function POST(request) {
         // Verify product belongs to this seller
         const product = await Product.findOne({ _id: productId, userId });
         if (!product) {
-            return NextResponse.json({ success: false, message: 'product not found or unauthorized' });
+            return NextResponse.json({ success: false, message: 'product not found or unauthorized' }, { status: 404 });
         }
 
         const previousStock = product.stock
@@ -41,6 +41,7 @@ export async function POST(request) {
 
         return NextResponse.json({ success: true, message: 'Stock updated successfully', stock: product.stock });
     } catch (error) {
-        return NextResponse.json({ success: false, message: error.message });
+        await logError('/api/product/update-stock', error, '', {}, 'error', 'api', 500);
+        return NextResponse.json({ success: false, message: error.message }, { status: 500 });
     }
 }
