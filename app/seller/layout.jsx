@@ -1,5 +1,5 @@
 'use client'
-import Navbar from '@/components/seller/Navbar'
+import RoleNavbar from '@/components/common/RoleNavbar'
 import Sidebar from '@/components/seller/Sidebar'
 import React, { useEffect } from 'react'
 import { useAppContext } from '@/context/AppContext'
@@ -23,7 +23,7 @@ const Layout = ({ children }) => {
 
   return (
     <div className='min-h-screen bg-[#fbf9f4]'>
-      <Navbar />
+      <RoleNavbar roleLabel='SELLER' />
       <div className='flex w-full'>
         <Sidebar />
         <main className='flex-1 overflow-auto bg-[#fbf9f4]'>

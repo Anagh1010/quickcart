@@ -2,7 +2,7 @@
 import { useAuth, useUser } from "@clerk/nextjs";
 import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { initClientLogger } from "@/lib/clientLogger";
 
@@ -94,54 +94,48 @@ export const AppContextProvider = (props) => {
         }
     }
 
-    const addToCart = async (itemId) => {
-
+    const addToCart = useCallback(async (itemId) => {
         if (!user) {
-            return toast('Please login',{
-                icon: '⚠️',
-              })
+            return toast('Please login', { icon: '⚠️' })
         }
 
-        let cartData = structuredClone(cartItems);
-        if (cartData[itemId]) {
-            cartData[itemId] += 1;
+        let nextCartData
+        setCartItems(prev => {
+            nextCartData = { ...prev, [itemId]: (prev[itemId] || 0) + 1 }
+            return nextCartData
+        })
+        try {
+            const token = await getToken()
+            await axios.post('/api/cart/update', { cartData: nextCartData }, { headers: { Authorization: `Bearer ${token}` } })
+            toast.success('Item added to cart')
+        } catch (error) {
+            toast.error(error.message)
         }
-        else {
-            cartData[itemId] = 1;
-        }
-        setCartItems(cartData);
-        if (user) {
-            try {
-                const token = await getToken()
-                await axios.post('/api/cart/update', {cartData}, {headers:{Authorization: `Bearer ${token}`}} )
-                toast.success('Item added to cart')
-            } catch (error) {
-                toast.error(error.message)
+    }, [user, getToken])
+
+    const updateCartQuantity = useCallback(async (itemId, quantity) => {
+        let nextCartData
+        setCartItems(prev => {
+            nextCartData = { ...prev }
+            if (quantity === 0) {
+                delete nextCartData[itemId]
+            } else {
+                nextCartData[itemId] = quantity
             }
-        }
-    }
-
-    const updateCartQuantity = async (itemId, quantity) => {
-
-        let cartData = structuredClone(cartItems);
-        if (quantity === 0) {
-            delete cartData[itemId];
-        } else {
-            cartData[itemId] = quantity;
-        }
-        setCartItems(cartData)
+            return nextCartData
+        })
         if (user) {
             try {
                 const token = await getToken()
-                await axios.post('/api/cart/update', {cartData}, {headers:{Authorization: `Bearer ${token}`}} )
+                await axios.post('/api/cart/update', { cartData: nextCartData }, { headers: { Authorization: `Bearer ${token}` } })
                 toast.success('Cart Updated')
             } catch (error) {
                 toast.error(error.message)
             }
         }
-    }
+    }, [user, getToken])
 
-    const getCartCount = () => {
+    const getCartCount = useCallback(() => {
         let totalCount = 0;
         for (const items in cartItems) {
             if (cartItems[items] > 0) {
@@ -149,9 +143,9 @@ export const AppContextProvider = (props) => {
             }
         }
         return totalCount;
-    }
+    }, [cartItems])
 
-    const getCartAmount = () => {
+    const getCartAmount = useCallback(() => {
         let totalAmount = 0;
         for (const items in cartItems) {
             let itemInfo = products.find((product) => product._id === items);
@@ -160,7 +154,7 @@ export const AppContextProvider = (props) => {
             }
         }
         return Math.floor(totalAmount * 100) / 100;
-    }
+    }, [cartItems, products])
 
     const loggerInitRef = useRef(false)
 
@@ -176,8 +170,8 @@ export const AppContextProvider = (props) => {
     useEffect(() => {
         if (user) {
             fetchUserData()
-            // Boot client-side perf logger once per session
-            if (!loggerInitRef.current) {
+            // Boot client-side perf logger once per session in production only
+            if (process.env.NODE_ENV === 'production' && !loggerInitRef.current) {
                 loggerInitRef.current = true
                 initClientLogger(user.id)
             }
@@ -189,7 +183,7 @@ export const AppContextProvider = (props) => {
         }
     }, [user])
 
-    const value = {
+    const value = useMemo(() => ({
         user, getToken,
         currency, router,
         isSeller, setIsSeller,
@@ -199,7 +193,7 @@ export const AppContextProvider = (props) => {
         cartItems, setCartItems,
         addToCart, updateCartQuantity,
         getCartCount, getCartAmount
-    }
+    }), [user, getToken, currency, router, isSeller, isAdmin, userData, products, cartItems, addToCart, updateCartQuantity, getCartCount, getCartAmount])
 
     return (
         <AppContext.Provider value={value}>

@@ -3,7 +3,7 @@ import React from 'react'
 import BrandLogo from '@/components/common/BrandLogo'
 import { useAppContext } from '@/context/AppContext'
 
-const Navbar = () => {
+export default function RoleNavbar({ roleLabel }) {
   const { router } = useAppContext()
 
   return (
@@ -17,11 +17,9 @@ const Navbar = () => {
           ← Storefront
         </button>
         <span className='rounded-full border border-stone-800 bg-[#141518] px-3 py-1 text-[10px] font-bold tracking-[0.16em] text-[#f5c344]'>
-          SELLER
+          {roleLabel}
         </span>
       </div>
     </div>
   )
 }
-
-export default Navbar

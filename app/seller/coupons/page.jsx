@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
+import ConfirmDialog from "@/components/common/ConfirmDialog";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -11,6 +12,8 @@ const ManageCoupons = () => {
     const [coupons, setCoupons] = useState([]);
     const [loading, setLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [deleteId, setDeleteId] = useState(null);
+    const [deleting, setDeleting] = useState(false);
 
     // Form states
     const [code, setCode] = useState("");
@@ -81,12 +84,14 @@ const ManageCoupons = () => {
         }
     };
 
-    const handleDeleteCoupon = async (couponId) => {
-        if (!confirm("Are you sure you want to delete this coupon?")) return;
+    const handleDeleteCoupon = (couponId) => setDeleteId(couponId);
 
+    const confirmDeleteCoupon = async () => {
+        if (!deleteId) return;
+        setDeleting(true);
         try {
             const token = await getToken();
-            const { data } = await axios.delete(`/api/coupon/manage?id=${couponId}`, {
+            const { data } = await axios.delete(`/api/coupon/manage?id=${deleteId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             if (data.success) {
@@ -97,6 +102,9 @@ const ManageCoupons = () => {
             }
         } catch (error) {
             toast.error(error.response?.data?.message || "Failed to delete coupon");
+        } finally {
+            setDeleting(false);
+            setDeleteId(null);
         }
     };
 
@@ -239,6 +247,15 @@ const ManageCoupons = () => {
                 </div>
             )}
             <Footer />
+            <ConfirmDialog
+                open={Boolean(deleteId)}
+                title="Delete coupon?"
+                description="Are you sure you want to delete this coupon? Buyers will no longer be able to apply it."
+                confirmLabel="Delete Coupon"
+                loading={deleting}
+                onConfirm={confirmDeleteCoupon}
+                onCancel={() => setDeleteId(null)}
+            />
         </div>
     );
 };

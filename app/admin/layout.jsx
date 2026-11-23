@@ -1,7 +1,7 @@
 'use client'
 import { useAppContext } from '@/context/AppContext'
 import { useEffect } from 'react'
-import AdminNavbar from '@/components/admin/Navbar'
+import RoleNavbar from '@/components/common/RoleNavbar'
 import AdminSidebar from '@/components/admin/Sidebar'
 
 export default function AdminLayout({ children }) {
@@ -23,7 +23,7 @@ export default function AdminLayout({ children }) {
 
     return (
         <div className='min-h-screen bg-[#fbf9f4]'>
-            <AdminNavbar />
+            <RoleNavbar roleLabel='ADMIN' />
             <div className='flex w-full'>
                 <AdminSidebar />
                 <main className='flex-1 overflow-auto bg-[#fbf9f4]'>

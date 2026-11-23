@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Footer from "@/components/seller/Footer";
 import Loading from "@/components/Loading";
+import ConfirmDialog from "@/components/common/ConfirmDialog";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -13,6 +14,8 @@ const ProductList = () => {
 
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [deleteId, setDeleteId] = useState(null)
+  const [deleting, setDeleting] = useState(false)
 
   const fetchSellerProduct = async () => {
     try {
@@ -34,12 +37,14 @@ const ProductList = () => {
     }
   }
 
-  const handleDeleteProduct = async (productId) => {
-    if (!confirm("Are you sure you want to permanently delete this listing? This will also remove all its reviews.")) return;
+  const handleDeleteProduct = (productId) => setDeleteId(productId);
 
+  const confirmDeleteProduct = async () => {
+    if (!deleteId) return;
+    setDeleting(true);
     try {
       const token = await getToken();
-      const { data } = await axios.delete(`/api/product/delete?id=${productId}`, {
+      const { data } = await axios.delete(`/api/product/delete?id=${deleteId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -51,6 +56,9 @@ const ProductList = () => {
       }
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to delete product");
+    } finally {
+      setDeleting(false);
+      setDeleteId(null);
     }
   };
 
@@ -140,6 +148,15 @@ const ProductList = () => {
         </div>
       )}
       <Footer />
+      <ConfirmDialog
+        open={Boolean(deleteId)}
+        title="Delete product listing?"
+        description="Are you sure you want to permanently delete this listing? This will also remove all its reviews."
+        confirmLabel="Delete Product"
+        loading={deleting}
+        onConfirm={confirmDeleteProduct}
+        onCancel={() => setDeleteId(null)}
+      />
     </div>
   );
 };

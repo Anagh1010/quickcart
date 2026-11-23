@@ -1,6 +1,5 @@
 "use client";
 import search_icon from "@/assets/search_icon.svg";
-import cart_icon from "@/assets/cart_icon.svg";
 import menu_icon from "@/assets/menu_icon.svg";
 import { BagIcon, CartIcon } from "@/assets/navigation-icons";
 
@@ -130,7 +129,7 @@ const Navbar = () => {
               className="relative flex items-center gap-1.5 rounded-xl border border-[#e6e4dc] bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 transition"
               aria-label="View Cart"
             >
-              <Image alt="Cart" className="size-4" src={cart_icon} />
+              <CartIcon className="size-4 text-stone-700" />
               <span className="hidden sm:inline">Cart</span>
               {cartCount > 0 && (
                 <span className="flex size-5 items-center justify-center rounded-full bg-[#f5c344] text-[11px] font-bold text-stone-900">
