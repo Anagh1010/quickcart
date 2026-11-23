@@ -60,11 +60,19 @@ export async function DELETE(request) {
         const all = searchParams.get('all') === 'true'
         const days = searchParams.get('days')
 
-        let query = {}
-        if (!all && days) {
+        let query = null
+        if (all) {
+            query = {}
+        } else if (days) {
             const daysNum = parseInt(days)
-            const cutoff = new Date(Date.now() - daysNum * 24 * 60 * 60 * 1000)
-            query = { createdAt: { $lt: cutoff } }
+            if (!isNaN(daysNum) && daysNum > 0) {
+                const cutoff = new Date(Date.now() - daysNum * 24 * 60 * 60 * 1000)
+                query = { createdAt: { $lt: cutoff } }
+            }
+        }
+
+        if (!query) {
+            return NextResponse.json({ success: false, message: 'Invalid delete parameters. Specify all=true or days=N.' }, { status: 400 })
         }
 
         const result = await ErrorLog.deleteMany(query)

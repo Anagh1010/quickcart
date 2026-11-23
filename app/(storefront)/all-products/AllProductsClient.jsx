@@ -172,8 +172,8 @@ const AllProductsContent = ({ initialProducts }) => {
             </div>
           ) : (
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5 pb-16">
-              {products.map((product) => (
-                <ProductCard key={product._id} product={product} loadEagerly={false} />
+              {products.map((product, index) => (
+                <ProductCard key={product._id} product={product} loadEagerly={index < 4} />
               ))}
             </div>
           )}

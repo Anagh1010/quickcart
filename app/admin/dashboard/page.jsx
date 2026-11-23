@@ -1,8 +1,10 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useAppContext } from '@/context/AppContext'
 import axios from 'axios'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
+import ConfirmDialog from '@/components/common/ConfirmDialog'
 
 const StatCard = ({ label, value, sub, highlighted }) => (
     <div className={`flex flex-col justify-between rounded-2xl border p-6 ${highlighted ? 'border-[#141518] bg-[#141518]' : 'border-[#e6e4dc] bg-white'}`}>
@@ -31,19 +33,56 @@ export default function AdminDashboard() {
     const { getToken, currency } = useAppContext()
     const [stats, setStats] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [clearingErrors, setClearingErrors] = useState(false)
+    const [clearingAudits, setClearingAudits] = useState(false)
+    const [confirmTarget, setConfirmTarget] = useState(null)
+
+    const fetchStats = useCallback(async () => {
+        try {
+            const token = await getToken()
+            const { data } = await axios.get('/api/admin/stats', { headers: { Authorization: `Bearer ${token}` } })
+            if (data.success) setStats(data.stats)
+        } finally {
+            setLoading(false)
+        }
+    }, [getToken])
 
     useEffect(() => {
-        const fetch = async () => {
-            try {
-                const token = await getToken()
-                const { data } = await axios.get('/api/admin/stats', { headers: { Authorization: `Bearer ${token}` } })
-                if (data.success) setStats(data.stats)
-            } finally {
-                setLoading(false)
+        fetchStats()
+    }, [fetchStats])
+
+    const executeClear = async () => {
+        if (!confirmTarget) return
+        const isErrors = confirmTarget === 'errors'
+        if (isErrors) setClearingErrors(true)
+        else setClearingAudits(true)
+
+        try {
+            const token = await getToken()
+            const { data } = await axios.delete(
+                isErrors ? '/api/admin/logs?all=true' : '/api/admin/audit?all=true',
+                { headers: { Authorization: `Bearer ${token}` } }
+            )
+            if (data.success) {
+                toast.success(
+                    isErrors
+                        ? `Cleared all error logs (${data.deleted} deleted)`
+                        : `Cleared all audit logs (${data.deleted} deleted)`
+                )
+                if (isErrors) setStats(prev => prev ? { ...prev, recentErrors: [] } : prev)
             }
+        } catch (err) {
+            console.error(`[admin/dashboard] Failed to clear ${confirmTarget} logs:`, err)
+            toast.error(`Failed to clear ${confirmTarget} logs`)
+        } finally {
+            if (isErrors) setClearingErrors(false)
+            else setClearingAudits(false)
+            setConfirmTarget(null)
         }
-        fetch()
-    }, [])
+    }
+
+    const handleClearErrorLogs = () => setConfirmTarget('errors')
+    const handleClearAuditLogs = () => setConfirmTarget('audit')
 
     if (loading) {
         return (
@@ -70,7 +109,7 @@ export default function AdminDashboard() {
                 <div>
                     <p className='text-xs font-bold uppercase tracking-[0.2em] text-amber-800'>Admin console</p>
                     <h2 className='mt-2 text-3xl font-bold tracking-tight text-[#141518]'>Platform overview</h2>
-                    <p className='mt-2 text-sm font-medium text-stone-500'>Users, sellers, orders, revenue, and recent errors.</p>
+                    <p className='mt-2 text-sm font-medium text-stone-500'>Users, sellers, orders, revenue, and system logs.</p>
                 </div>
 
                 {/* Stats Grid */}
@@ -78,11 +117,46 @@ export default function AdminDashboard() {
                     {statCards.map(c => <StatCard key={c.label} {...c} />)}
                 </div>
 
+                {/* System Log Maintenance */}
+                <div className='flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#e6e4dc] bg-white p-6'>
+                    <div>
+                        <h3 className='text-sm font-bold uppercase tracking-wider text-stone-900'>Log Maintenance</h3>
+                        <p className='mt-1 text-xs text-stone-500'>Quick actions to purge stored error diagnostics and audit events.</p>
+                    </div>
+                    <div className='flex flex-wrap items-center gap-2.5'>
+                        <button
+                            onClick={handleClearErrorLogs}
+                            disabled={clearingErrors}
+                            className='rounded-xl border border-rose-200 bg-rose-50 px-3.5 py-2 text-xs font-bold text-rose-700 transition hover:bg-rose-100 disabled:opacity-50 cursor-pointer'
+                        >
+                            {clearingErrors ? 'Clearing Errors…' : 'Clear All Error Logs'}
+                        </button>
+                        <button
+                            onClick={handleClearAuditLogs}
+                            disabled={clearingAudits}
+                            className='rounded-xl border border-amber-200 bg-amber-50 px-3.5 py-2 text-xs font-bold text-amber-900 transition hover:bg-amber-100 disabled:opacity-50 cursor-pointer'
+                        >
+                            {clearingAudits ? 'Clearing Audits…' : 'Clear All Audit Logs'}
+                        </button>
+                    </div>
+                </div>
+
                 {/* Recent Errors */}
                 <div className='overflow-hidden rounded-2xl border border-[#e6e4dc] bg-white'>
                     <div className='flex items-center justify-between border-b border-[#f0eee6] px-6 py-4'>
                         <h3 className='text-sm font-bold uppercase tracking-wider text-stone-900'>Recent Errors</h3>
-                        <Link href='/admin/logs' className='text-sm font-semibold text-amber-800 hover:text-amber-900'>View all →</Link>
+                        <div className='flex items-center gap-3'>
+                            {stats?.recentErrors?.length > 0 && (
+                                <button
+                                    onClick={handleClearErrorLogs}
+                                    disabled={clearingErrors}
+                                    className='rounded-lg border border-rose-200 bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700 hover:bg-rose-100 disabled:opacity-50 cursor-pointer'
+                                >
+                                    {clearingErrors ? 'Clearing…' : 'Clear All'}
+                                </button>
+                            )}
+                            <Link href='/admin/logs' className='text-sm font-semibold text-amber-800 hover:text-amber-900'>View all →</Link>
+                        </div>
                     </div>
                     {stats?.recentErrors?.length > 0 ? (
                         <div className='divide-y divide-[#f0eee6]'>
@@ -103,6 +177,21 @@ export default function AdminDashboard() {
                     )}
                 </div>
             </div>
+
+            <ConfirmDialog
+                open={Boolean(confirmTarget)}
+                title={confirmTarget === 'errors' ? 'Clear all error logs?' : 'Clear all audit logs?'}
+                description={
+                    confirmTarget === 'errors'
+                        ? 'This will permanently delete every stored error log entry. This action cannot be undone.'
+                        : 'This will permanently delete all audit log entries across the platform. This action cannot be undone.'
+                }
+                confirmLabel={confirmTarget === 'errors' ? 'Clear All Error Logs' : 'Clear All Audit Logs'}
+                tone={confirmTarget === 'errors' ? 'danger' : 'warning'}
+                loading={confirmTarget === 'errors' ? clearingErrors : clearingAudits}
+                onConfirm={executeClear}
+                onCancel={() => setConfirmTarget(null)}
+            />
         </div>
     )
 }

@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { useClerk } from "@clerk/nextjs";
+import { useAppContext } from "@/context/AppContext";
 
 const CATEGORIES = [
   { name: "Earphone", slot: "CAT 01" },
@@ -24,6 +26,9 @@ const CatalogSidebar = ({
   setMaxPrice,
   handlePriceChangeSubmit,
 }) => {
+  const { user } = useAppContext();
+  const { openSignIn } = useClerk();
+
   return (
     <aside className="w-full md:w-72 shrink-0 space-y-5">
       {/* Dark Cart Overview Panel in Screenshot 2 Style */}
@@ -67,7 +72,7 @@ const CatalogSidebar = ({
               : "■ Add products to build your order"}
           </p>
           <button
-            onClick={() => router.push("/cart")}
+            onClick={() => (user ? router.push("/cart") : openSignIn({ fallbackRedirectUrl: "/cart" }))}
             className="w-full rounded-xl bg-[#f5c344] hover:bg-[#e6b02e] py-2.5 px-4 text-xs font-bold text-stone-950 transition shadow-sm"
           >
             Review and checkout →

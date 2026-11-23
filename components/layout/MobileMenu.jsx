@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import BrandLogo from "@/components/common/BrandLogo";
+import { useAppContext } from "@/context/AppContext";
 
 const MobileMenu = ({ isOpen, onClose }) => {
+  const { isSeller, isAdmin } = useAppContext();
   if (!isOpen) return null;
 
   const goHome = () => {
@@ -15,10 +17,10 @@ const MobileMenu = ({ isOpen, onClose }) => {
   const links = [
     { action: goHome, href: "/", label: "Home" },
     { href: "/all-products", label: "Shop" },
-    { href: "/my-orders", label: "Orders" },
-    { href: "/cart", label: "Cart" },
     { href: "/#about", label: "About" },
     { href: "/#contact", label: "Contact & Support" },
+    ...(isSeller ? [{ href: "/seller", label: "Seller Dashboard" }] : []),
+    ...(isAdmin ? [{ href: "/admin", label: "Admin Console" }] : []),
   ];
 
   return (

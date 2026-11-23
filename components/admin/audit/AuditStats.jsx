@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { ACTION_LABELS } from './AuditConstants'
 
 export const StatCard = ({ label, value, sub }) => (
@@ -20,25 +20,54 @@ export const MiniBar = ({ value, max }) => (
 )
 
 export const Sparkline = ({ data }) => {
+    const [hovered, setHovered] = useState(null)
     if (!data?.length) return null
+
     const counts = data.map(d => d.count)
     const max = Math.max(...counts, 1)
-    const w = 280, h = 48, pad = 4
-    const pts = counts.map((v, i) => {
-        const x = pad + (i / (counts.length - 1 || 1)) * (w - pad * 2)
-        const y = h - pad - ((v / max) * (h - pad * 2))
-        return `${x},${y}`
-    }).join(' ')
+    const w = 280, h = 60, pad = 6
+    const coords = data.map((d, i) => ({
+        x: pad + (i / (data.length - 1 || 1)) * (w - pad * 2),
+        y: h - pad - ((d.count / max) * (h - pad * 2)),
+        date: d._id,
+        count: d.count,
+    }))
+    const pts = coords.map(c => `${c.x},${c.y}`).join(' ')
+    const areaPts = `${coords[0].x},${h - pad} ${pts} ${coords[coords.length - 1].x},${h - pad}`
+    const active = hovered !== null ? coords[hovered] : null
 
     return (
-        <svg viewBox={`0 0 ${w} ${h}`} className='w-full h-12'>
-            <polyline fill='none' stroke='#f5c344' strokeWidth='2' strokeLinejoin='round' strokeLinecap='round' points={pts} />
-            {counts.map((v, i) => {
-                const x = pad + (i / (counts.length - 1 || 1)) * (w - pad * 2)
-                const y = h - pad - ((v / max) * (h - pad * 2))
-                return <circle key={i} cx={x} cy={y} r='2.5' fill='#e6b02e' />
-            })}
-        </svg>
+        <div className='relative'>
+            <div className='mb-1 flex h-5 items-center justify-between text-[11px]'>
+                {active ? (
+                    <>
+                        <span className='font-mono font-semibold text-stone-700'>{active.date}</span>
+                        <span className='rounded-md bg-amber-50 px-1.5 py-0.5 font-mono font-bold text-amber-900 border border-amber-200'>
+                            {active.count.toLocaleString()} events
+                        </span>
+                    </>
+                ) : (
+                    <span className='text-stone-400'>Hover a point to inspect daily volume</span>
+                )}
+            </div>
+            <svg viewBox={`0 0 ${w} ${h}`} className='w-full h-16 overflow-visible' onMouseLeave={() => setHovered(null)}>
+                <polygon fill='#f5c344' fillOpacity='0.14' points={areaPts} />
+                <polyline fill='none' stroke='#f5c344' strokeWidth='2' strokeLinejoin='round' strokeLinecap='round' points={pts} />
+                {coords.map((c, i) => (
+                    <g key={c.date} onMouseEnter={() => setHovered(i)} className='cursor-pointer'>
+                        <circle cx={c.x} cy={c.y} r='8' fill='transparent' />
+                        <circle
+                            cx={c.x}
+                            cy={c.y}
+                            r={hovered === i ? '4' : '2.5'}
+                            fill={hovered === i ? '#141518' : '#e6b02e'}
+                            stroke={hovered === i ? '#f5c344' : 'none'}
+                            strokeWidth='1.5'
+                        />
+                    </g>
+                ))}
+            </svg>
+        </div>
     )
 }
 

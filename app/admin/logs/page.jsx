@@ -5,6 +5,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import LogToolbar from '@/components/admin/logs/LogToolbar'
 import LogResults from '@/components/admin/logs/LogResults'
+import ConfirmDialog from '@/components/common/ConfirmDialog'
 
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export default function AdminLogsPage() {
@@ -15,6 +16,7 @@ export default function AdminLogsPage() {
     const [loading, setLoading]   = useState(true)
     const [expanded, setExpanded] = useState(null)
     const [deleting, setDeleting] = useState(false)
+    const [confirmAction, setConfirmAction] = useState(null)
     const [filters, setFilters] = useState({ level: 'all', category: 'all', statusCode: 'all', route: '', page: 1 })
     const [ttlDays, setTtlDays]           = useState(90)
     const [ttlInput, setTtlInput]         = useState(90)
@@ -108,16 +110,23 @@ export default function AdminLogsPage() {
         }
     }
 
-    const handleClearOld = async (days) => {
-        if (!confirm(`Delete all logs older than ${days} days?`)) return
+    const executeDelete = async () => {
+        if (!confirmAction) return
         setDeleting(true)
         try {
             const token = await getToken()
-            const { data } = await axios.delete(`/api/admin/logs?days=${days}`, {
+            const url = confirmAction.type === 'all'
+                ? '/api/admin/logs?all=true'
+                : `/api/admin/logs?days=${confirmAction.days}`
+            const { data } = await axios.delete(url, {
                 headers: { Authorization: `Bearer ${token}` }
             })
             if (data.success) {
-                toast.success(`Deleted ${data.deleted} old log entries`)
+                toast.success(
+                    confirmAction.type === 'all'
+                        ? `Cleared all error logs (${data.deleted} deleted)`
+                        : `Deleted ${data.deleted} old log entries`
+                )
                 fetchLogs()
             }
         } catch (err) {
@@ -125,28 +134,12 @@ export default function AdminLogsPage() {
             toast.error('Failed to delete logs')
         } finally {
             setDeleting(false)
+            setConfirmAction(null)
         }
     }
 
-    const handleClearAll = async () => {
-        if (!confirm('Are you sure you want to delete ALL error logs? This cannot be undone.')) return
-        setDeleting(true)
-        try {
-            const token = await getToken()
-            const { data } = await axios.delete('/api/admin/logs?all=true', {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            if (data.success) {
-                toast.success(`Cleared all error logs (${data.deleted} deleted)`)
-                fetchLogs()
-            }
-        } catch (err) {
-            console.error('[admin/logs] Failed to clear all logs:', err)
-            toast.error('Failed to clear logs')
-        } finally {
-            setDeleting(false)
-        }
-    }
+    const handleClearOld = (days) => setConfirmAction({ type: 'old', days })
+    const handleClearAll = () => setConfirmAction({ type: 'all' })
 
     const fireTestLog = async (level, category = 'api', statusCode = null) => {
         try {
@@ -161,26 +154,6 @@ export default function AdminLogsPage() {
             }
         } catch {
             toast.error('Failed to fire test log')
-        }
-    }
-
-    const [migrating, setMigrating] = useState(false)
-    const handleMigrate = async () => {
-        if (!confirm('Tag all existing logs with inferred category + status code?\nThis is safe to run multiple times.')) return
-        setMigrating(true)
-        try {
-            const token = await getToken()
-            const { data } = await axios.post('/api/admin/logs/migrate', {}, {
-                headers: { Authorization: `Bearer ${token}` }
-            })
-            if (data.success) {
-                toast.success(data.message)
-                fetchLogs()
-            }
-        } catch {
-            toast.error('Migration failed')
-        } finally {
-            setMigrating(false)
         }
     }
 
@@ -201,8 +174,6 @@ export default function AdminLogsPage() {
                     deleting={deleting}
                     handleClearOld={handleClearOld}
                     handleClearAll={handleClearAll}
-                    migrating={migrating}
-                    handleMigrate={handleMigrate}
                     filters={filters}
                     setFilters={setFilters}
                     fetchLogs={fetchLogs}
@@ -217,6 +188,20 @@ export default function AdminLogsPage() {
                     setFilters={setFilters}
                 />
             </div>
+
+            <ConfirmDialog
+                open={Boolean(confirmAction)}
+                title={confirmAction?.type === 'all' ? 'Clear all error logs?' : `Clear error logs older than ${confirmAction?.days} days?`}
+                description={
+                    confirmAction?.type === 'all'
+                        ? 'This will permanently delete every stored error log entry. This action cannot be undone.'
+                        : `All error log entries created more than ${confirmAction?.days} days ago will be permanently deleted.`
+                }
+                confirmLabel={confirmAction?.type === 'all' ? 'Clear All Error Logs' : `Delete > ${confirmAction?.days} days`}
+                loading={deleting}
+                onConfirm={executeDelete}
+                onCancel={() => setConfirmAction(null)}
+            />
         </div>
     )
 }

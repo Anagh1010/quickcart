@@ -5,6 +5,7 @@ import React, { useEffect, useState, useTransition } from "react";
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
 import Loading from "@/components/Loading";
+import { useClerk } from "@clerk/nextjs";
 import { useAppContext } from "@/context/AppContext";
 import { getCloudinaryImageUrl } from "@/lib/cloudinaryImage";
 import ProductReviews from "./ProductReviews";
@@ -12,6 +13,7 @@ import ProductReviews from "./ProductReviews";
 const Product = ({ initialProduct }) => {
     const id = initialProduct._id;
     const { router, addToCart, user, currency } = useAppContext();
+    const { openSignIn } = useClerk();
 
     const [mainImage, setMainImage] = useState(null);
     const productData = initialProduct;
@@ -232,6 +234,7 @@ const Product = ({ initialProduct }) => {
                         <button
                             disabled={isOutOfStock}
                             onClick={() => {
+                                if (!user) return openSignIn({ fallbackRedirectUrl: '/cart' });
                                 addToCart(productData._id);
                                 router.push('/cart');
                             }}

@@ -1,5 +1,4 @@
 'use client'
-import heart_icon from "@/assets/heart_icon.svg";
 import star_icon from "@/assets/star_icon.svg";
 import star_dull_icon from "@/assets/star_dull_icon.svg";
 
@@ -9,16 +8,17 @@ import Image from 'next/image';
 import { useAppContext } from '@/context/AppContext';
 
 const ProductCard = ({ product, loadEagerly }) => {
-    const { currency, router } = useAppContext()
+    const { currency, router, addToCart } = useAppContext()
 
     const avgRating = product.avgRating !== undefined ? Number(product.avgRating) : 0;
     const totalReviews = product.totalReviews !== undefined ? Number(product.totalReviews) : 0;
     const isOutOfStock = product.stock === 0;
     const isLowStock = product.stock > 0 && product.stock < 5;
 
-    const codeTag = product.category
-        ? `#${product.category.slice(0, 3).toUpperCase()}-${product._id.slice(-3).toUpperCase()}`
-        : "#QC-ITEM";
+    const hasDiscount = Number(product.price) > Number(product.offerPrice);
+    const discountPct = hasDiscount
+        ? Math.round(((product.price - product.offerPrice) / product.price) * 100)
+        : 0;
 
     return (
         <div
@@ -40,10 +40,16 @@ const ProductCard = ({ product, loadEagerly }) => {
                             </span>
                         ) : (
                             <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[10px] font-bold text-emerald-800 uppercase tracking-wide">
-                                ✓ In Stock
+                                In Stock
                             </span>
                         )}
                     </div>
+
+                    {hasDiscount && discountPct > 0 && !isOutOfStock && (
+                        <span className="absolute top-2.5 right-2.5 z-10 rounded-full bg-[#141518] px-2 py-0.5 text-[10px] font-bold text-[#f5c344] tracking-wide">
+                            {discountPct}% OFF
+                        </span>
+                    )}
 
                     <Image
                         src={getCloudinaryImageUrl(product.image[0], 400)}
@@ -54,28 +60,11 @@ const ProductCard = ({ product, loadEagerly }) => {
                         loading={loadEagerly ? 'eager' : 'lazy'}
                         sizes="(max-width: 639px) 50vw, (max-width: 1279px) 33vw, 240px"
                     />
-
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                        }}
-                        className="absolute top-2.5 right-2.5 bg-white p-1.5 rounded-full border border-stone-200 shadow-2xs z-10 hover:bg-stone-50 transition"
-                        aria-label="Save item"
-                    >
-                        <Image
-                            className="size-3.5 opacity-70"
-                            src={heart_icon}
-                            alt="heart_icon"
-                        />
-                    </button>
                 </div>
 
-                {/* SKU Code & Category Tag */}
+                {/* Category Tag */}
                 <div className="mt-3 flex items-center gap-2">
-                    <span className="rounded bg-[#fef08a] px-1.5 py-0.5 font-mono text-[10px] font-bold text-[#854d0e]">
-                        {codeTag}
-                    </span>
-                    <span className="text-[11px] font-medium text-stone-500 uppercase tracking-wider">
+                    <span className="text-[11px] font-semibold text-stone-500 uppercase tracking-wider">
                         {product.category || "General"}
                     </span>
                 </div>
@@ -90,23 +79,27 @@ const ProductCard = ({ product, loadEagerly }) => {
 
                 {/* Dynamic Star Ratings */}
                 <div className="flex items-center gap-1.5 pt-2">
-                    <span className="text-xs font-mono font-bold text-stone-800">
-                        {avgRating > 0 ? avgRating.toFixed(1) : "4.8"}
-                    </span>
-                    <div className="flex items-center gap-0.5">
-                        {Array.from({ length: 5 }).map((_, index) => (
-                            <Image
-                                key={index}
-                                className="size-2.5"
-                                src={index < Math.floor(avgRating || 4.5) ? star_icon : star_dull_icon}
-                                alt="star"
-                                width={10}
-                                height={10}
-                            />
-                        ))}
-                    </div>
-                    {totalReviews > 0 && (
-                        <span className="text-[10px] text-stone-400 font-medium">({totalReviews})</span>
+                    {totalReviews > 0 && avgRating > 0 ? (
+                        <>
+                            <span className="text-xs font-mono font-bold text-stone-800">
+                                {avgRating.toFixed(1)}
+                            </span>
+                            <div className="flex items-center gap-0.5">
+                                {Array.from({ length: 5 }).map((_, index) => (
+                                    <Image
+                                        key={index}
+                                        className="size-2.5"
+                                        src={index < Math.floor(avgRating) ? star_icon : star_dull_icon}
+                                        alt="star"
+                                        width={10}
+                                        height={10}
+                                    />
+                                ))}
+                            </div>
+                            <span className="text-[10px] text-stone-400 font-medium">({totalReviews})</span>
+                        </>
+                    ) : (
+                        <span className="text-[11px] text-stone-400 font-medium">No reviews yet</span>
                     )}
                 </div>
             </div>
@@ -115,10 +108,20 @@ const ProductCard = ({ product, loadEagerly }) => {
             <div className="flex items-center justify-between w-full mt-3 pt-3 border-t border-[#f0eee6]">
                 <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">Price</span>
-                    <span className="text-base font-bold text-stone-900">{currency}{product.offerPrice}</span>
+                    <div className="flex items-baseline gap-1.5">
+                        <span className="text-base font-bold text-stone-900">{currency}{product.offerPrice}</span>
+                        {hasDiscount && (
+                            <span className="text-xs text-stone-400 line-through">{currency}{product.price}</span>
+                        )}
+                    </div>
                 </div>
                 <button
+                    type="button"
                     disabled={isOutOfStock}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        addToCart(product._id);
+                    }}
                     className={`px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-1 ${
                         isOutOfStock
                             ? 'text-stone-400 border border-stone-200 cursor-not-allowed bg-stone-100'
