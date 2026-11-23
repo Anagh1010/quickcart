@@ -16,7 +16,7 @@ const NewsLetter = () => {
   return (
     <section className="py-12">
       <div className="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-5 sm:px-8 xl:px-12">
-        <div className="w-full max-w-3xl rounded-2xl border border-[#e6e4dc] bg-white p-8 md:p-12 text-center shadow-2xs">
+        <div className="w-full max-w-3xl rounded-2xl border border-border-subtle bg-white p-8 md:p-12 text-center shadow-2xs">
           <span className="rounded-full bg-[#fef08a] px-3 py-1 font-mono text-[10px] font-bold text-[#854d0e] uppercase tracking-wider border border-[#fde047]">
             INSIDER DEALS & DROPS
           </span>
@@ -32,7 +32,7 @@ const NewsLetter = () => {
             suppressHydrationWarning
           >
             <input
-              className="h-11 w-full rounded-xl border border-[#e6e4dc] bg-[#f8f7f2] px-4 text-xs text-stone-900 outline-none focus:border-stone-400 focus:bg-white placeholder:text-stone-400 transition"
+              className="h-11 w-full rounded-xl border border-border-subtle bg-surface-subtle px-4 text-xs text-stone-900 outline-none focus:border-stone-400 focus:bg-white placeholder:text-stone-400 transition"
               type="email"
               placeholder="Enter your email address"
               value={email}

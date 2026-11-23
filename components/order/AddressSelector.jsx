@@ -20,7 +20,7 @@ const AddressSelector = ({
       <div className="relative inline-block w-full text-xs">
         <button
           type="button"
-          className="w-full text-left px-3.5 py-2.5 bg-white border border-[#e6e4dc] rounded-xl text-stone-800 flex items-center justify-between shadow-2xs hover:border-stone-400 transition"
+          className="w-full text-left px-3.5 py-2.5 bg-white border border-border-subtle rounded-xl text-stone-800 flex items-center justify-between shadow-2xs hover:border-stone-400 transition"
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         >
           <span className="truncate pr-2">
@@ -40,7 +40,7 @@ const AddressSelector = ({
         </button>
 
         {isDropdownOpen && (
-          <ul className="absolute w-full bg-white border border-[#e6e4dc] shadow-md mt-1.5 z-20 py-1 rounded-xl max-h-48 overflow-y-auto">
+          <ul className="absolute w-full bg-white border border-border-subtle shadow-md mt-1.5 z-20 py-1 rounded-xl max-h-48 overflow-y-auto">
             {userAddresses.map((address, index) => (
               <li
                 key={index}

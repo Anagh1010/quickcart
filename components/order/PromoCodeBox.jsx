@@ -41,7 +41,7 @@ const PromoCodeBox = ({
             placeholder="e.g. SAVE20, FREESHIP"
             value={promoCode}
             onChange={(e) => setPromoCode(e.target.value)}
-            className="w-full text-xs p-2.5 text-stone-800 border border-[#e6e4dc] rounded-xl bg-white focus:border-stone-400 outline-none uppercase placeholder:normal-case font-mono"
+            className="w-full text-xs p-2.5 text-stone-800 border border-border-subtle rounded-xl bg-white focus:border-stone-400 outline-none uppercase placeholder:normal-case font-mono"
           />
           <button
             type="button"

@@ -7,7 +7,7 @@ export default function RoleNavbar({ roleLabel }) {
   const { router } = useAppContext()
 
   return (
-    <div className='flex items-center justify-between border-b border-[#e6e4dc] bg-[#fbf9f4] px-4 py-3 md:px-8'>
+    <div className='flex items-center justify-between border-b border-border-subtle bg-canvas px-4 py-3 md:px-8'>
       <BrandLogo onClick={() => router.push('/')} size='sm' />
       <div className='flex items-center gap-4'>
         <button
@@ -16,7 +16,7 @@ export default function RoleNavbar({ roleLabel }) {
         >
           ← Storefront
         </button>
-        <span className='rounded-full border border-stone-800 bg-[#141518] px-3 py-1 text-[10px] font-bold tracking-[0.16em] text-[#f5c344]'>
+        <span className='rounded-full border border-stone-800 bg-dark-surface px-3 py-1 text-[10px] font-bold tracking-[0.16em] text-[#f5c344]'>
           {roleLabel}
         </span>
       </div>

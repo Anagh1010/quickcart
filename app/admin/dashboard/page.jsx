@@ -7,10 +7,10 @@ import toast from 'react-hot-toast'
 import ConfirmDialog from '@/components/common/ConfirmDialog'
 
 const StatCard = ({ label, value, sub, highlighted }) => (
-    <div className={`flex flex-col justify-between rounded-2xl border p-6 ${highlighted ? 'border-[#141518] bg-[#141518]' : 'border-[#e6e4dc] bg-white'}`}>
+    <div className={`flex flex-col justify-between rounded-2xl border p-6 ${highlighted ? 'border-dark-surface bg-dark-surface' : 'border-border-subtle bg-white'}`}>
         <span className={`text-xs font-bold uppercase tracking-wider ${highlighted ? 'text-stone-400' : 'text-stone-500'}`}>{label}</span>
         <div className='flex items-baseline gap-1.5 mt-3'>
-            <span className={`text-3xl font-extrabold ${highlighted ? 'text-[#f5c344]' : 'text-[#141518]'}`}>{value ?? '—'}</span>
+            <span className={`text-3xl font-extrabold ${highlighted ? 'text-[#f5c344]' : 'text-dark-surface'}`}>{value ?? '—'}</span>
             {sub && <span className={`text-xs font-medium ${highlighted ? 'text-stone-400' : 'text-stone-500'}`}>{sub}</span>}
         </div>
     </div>
@@ -86,7 +86,7 @@ export default function AdminDashboard() {
 
     if (loading) {
         return (
-            <div className='flex min-h-96 items-center justify-center bg-[#fbf9f4]'>
+            <div className='flex min-h-96 items-center justify-center bg-canvas'>
                 <div className='animate-spin w-8 h-8 border-2 border-[#f5c344] border-t-transparent rounded-full' />
             </div>
         )
@@ -103,12 +103,12 @@ export default function AdminDashboard() {
     ]
 
     return (
-        <div className='min-h-screen flex-1 bg-[#fbf9f4]'>
+        <div className='min-h-screen flex-1 bg-canvas'>
             <div className='mx-auto w-full max-w-7xl space-y-8 p-4 md:p-10'>
 
                 <div>
                     <p className='text-xs font-bold uppercase tracking-[0.2em] text-amber-800'>Admin console</p>
-                    <h2 className='mt-2 text-3xl font-bold tracking-tight text-[#141518]'>Platform overview</h2>
+                    <h2 className='mt-2 text-3xl font-bold tracking-tight text-dark-surface'>Platform overview</h2>
                     <p className='mt-2 text-sm font-medium text-stone-500'>Users, sellers, orders, revenue, and system logs.</p>
                 </div>
 
@@ -118,7 +118,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* System Log Maintenance */}
-                <div className='flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#e6e4dc] bg-white p-6'>
+                <div className='flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-border-subtle bg-white p-6'>
                     <div>
                         <h3 className='text-sm font-bold uppercase tracking-wider text-stone-900'>Log Maintenance</h3>
                         <p className='mt-1 text-xs text-stone-500'>Quick actions to purge stored error diagnostics and audit events.</p>
@@ -142,7 +142,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Recent Errors */}
-                <div className='overflow-hidden rounded-2xl border border-[#e6e4dc] bg-white'>
+                <div className='overflow-hidden rounded-2xl border border-border-subtle bg-white'>
                     <div className='flex items-center justify-between border-b border-[#f0eee6] px-6 py-4'>
                         <h3 className='text-sm font-bold uppercase tracking-wider text-stone-900'>Recent Errors</h3>
                         <div className='flex items-center gap-3'>

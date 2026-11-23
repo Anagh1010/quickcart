@@ -104,12 +104,12 @@ const Product = ({ initialProduct }) => {
     const isLowStock = productData.stock > 0 && productData.stock < 5;
 
     return (
-        <div className="min-h-screen space-y-10 bg-[#fbf9f4] px-5 pb-16 pt-8 text-stone-900 sm:px-8 xl:px-12">
+        <div className="min-h-screen space-y-10 bg-canvas px-5 pb-16 pt-8 text-stone-900 sm:px-8 xl:px-12">
             {/* 1. Main Info Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 rounded-2xl border border-[#e6e4dc] bg-white p-6 md:p-8 shadow-2xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 rounded-2xl border border-border-subtle bg-white p-6 md:p-8 shadow-2xs">
                 {/* Left Frame: Images Showcase */}
                 <div className="flex flex-col gap-4">
-                    <div className="rounded-xl overflow-hidden bg-[#f8f7f2] flex items-center justify-center p-6 border border-[#e6e4dc]">
+                    <div className="rounded-xl overflow-hidden bg-surface-subtle flex items-center justify-center p-6 border border-border-subtle">
                         <Image
                             src={getCloudinaryImageUrl(mainImage || productData.image[0], 1000)}
                             alt={productData.name}
@@ -126,10 +126,10 @@ const Product = ({ initialProduct }) => {
                             <div
                                 key={index}
                                 onClick={() => setMainImage(image)}
-                                className={`cursor-pointer rounded-lg overflow-hidden bg-[#f8f7f2] p-2 border transition ${
+                                className={`cursor-pointer rounded-lg overflow-hidden bg-surface-subtle p-2 border transition ${
                                     mainImage === image
                                         ? 'border-[#f5c344] ring-2 ring-[#fef08a]'
-                                        : 'border-[#e6e4dc] hover:border-stone-400'
+                                        : 'border-border-subtle hover:border-stone-400'
                                 }`}
                             >
                                 <Image
@@ -194,7 +194,7 @@ const Product = ({ initialProduct }) => {
                         </div>
 
                         {/* Product Specifications Table */}
-                        <div className="rounded-xl border border-[#eceae3] bg-[#f8f7f2] p-4 mb-6">
+                        <div className="rounded-xl border border-[#eceae3] bg-surface-subtle p-4 mb-6">
                             <div className="divide-y divide-[#eceae3] text-xs">
                                 <div className="flex justify-between py-2">
                                     <span className="text-stone-500 font-medium">Category</span>

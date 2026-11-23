@@ -5,7 +5,7 @@ import LayoutContainer from "@/components/layout/LayoutContainer";
 const PromotionBanner = () => (
   <section className="py-12">
     <LayoutContainer size="wide">
-      <div className="overflow-hidden rounded-2xl md:rounded-3xl bg-[#141518] border border-stone-800 p-6 sm:p-10 md:p-12 text-white shadow-sm">
+      <div className="overflow-hidden rounded-2xl md:rounded-3xl bg-dark-surface border border-stone-800 p-6 sm:p-10 md:p-12 text-white shadow-sm">
         <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <div>
             <div className="flex items-center gap-2">

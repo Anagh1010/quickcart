@@ -1,9 +1,9 @@
 # Continuity Ledger
 
 ## Snapshot
-- 2026-11-23 [USER] Goal: fix INP performance logging noise and main-thread interaction delays (fixes #1 and #2).
-- 2026-11-23 [CODE] Now: restricted `initClientLogger` to production, batched max INP on page hide, memoized `AppContext` + `ProductCard`, replaced `structuredClone` with shallow spread, and replaced last 2 `confirm()` dialogs with `ConfirmDialog`.
-- 2026-11-23 [CODE] Next: user review (fix #3 deferred by user).
+- 2026-11-23 [USER] Goal: migrate arbitrary hex Tailwind classes to canonical `@theme` tokens (`border-border-subtle`, `bg-canvas`, `bg-surface-subtle`, `bg-dark-surface`).
+- 2026-11-23 [CODE] Now: converted 205 arbitrary hex color classes across 49 files in `app/` and `components/` to canonical `@theme` tokens; verifying build.
+- 2026-11-23 [CODE] Next: user review.
 - 2026-11-23 [TOOL] Receipts: 0 files > 300 LOC (max 245 LOC); `next build --webpack` 54/54 routes passed cleanly (exit code 0).
 - 2026-11-23 [USER] Open questions: none.
 

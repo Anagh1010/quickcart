@@ -57,7 +57,7 @@ const Navbar = () => {
   const cartCount = getCartCount ? getCartCount() : 0;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#e6e4dc] bg-[#fbf9f4]/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-border-subtle bg-canvas/95 backdrop-blur-md">
       <LayoutContainer size="wide">
         <nav aria-label="Main navigation" className="flex h-16 items-center justify-between gap-4 py-2">
           {/* QuickCart Brand Header Lockup */}
@@ -87,7 +87,7 @@ const Navbar = () => {
           {/* Search Bar with Shortcut [/] */}
           <form
             onSubmit={submitSearch}
-            className="hidden flex-1 max-w-sm items-center gap-2 rounded-xl border border-[#e6e4dc] bg-white px-3.5 py-2 focus-within:border-stone-400 focus-within:ring-1 focus-within:ring-stone-400 md:flex"
+            className="hidden flex-1 max-w-sm items-center gap-2 rounded-xl border border-border-subtle bg-white px-3.5 py-2 focus-within:border-stone-400 focus-within:ring-1 focus-within:ring-stone-400 md:flex"
           >
             <Image alt="Search" className="size-4 opacity-50" src={search_icon} />
             <input
@@ -126,7 +126,7 @@ const Navbar = () => {
             {/* Cart Button next to Sign in / Profile */}
             <button
               onClick={() => (user ? router.push("/cart") : openSignIn({ fallbackRedirectUrl: "/cart" }))}
-              className="relative flex items-center gap-1.5 rounded-xl border border-[#e6e4dc] bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 transition"
+              className="relative flex items-center gap-1.5 rounded-xl border border-border-subtle bg-white px-3.5 py-1.5 text-sm font-medium text-stone-700 hover:bg-stone-50 transition"
               aria-label="View Cart"
             >
               <CartIcon className="size-4 text-stone-700" />
@@ -163,7 +163,7 @@ const Navbar = () => {
             {/* Mobile menu button */}
             <button
               aria-label="Open menu"
-              className="rounded-xl border border-[#e6e4dc] bg-white p-2 text-stone-700 hover:bg-stone-50 lg:hidden"
+              className="rounded-xl border border-border-subtle bg-white p-2 text-stone-700 hover:bg-stone-50 lg:hidden"
               onClick={() => setIsMobileMenuOpen(true)}
             >
               <Image alt="" className="size-5" src={menu_icon} />

@@ -158,7 +158,7 @@ export default function AdminLogsPage() {
     }
 
     return (
-        <div className='min-h-screen flex-1 bg-[#fbf9f4]'>
+        <div className='min-h-screen flex-1 bg-canvas'>
             <div className='mx-auto w-full max-w-7xl space-y-6 p-4 md:p-10'>
                 <LogToolbar
                     total={total}

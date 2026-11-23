@@ -67,7 +67,7 @@ const Orders = () => {
     if (loading) return <Loading />;
 
     return (
-        <div className="flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900 text-sm">
+        <div className="flex-1 min-h-screen flex flex-col justify-between bg-canvas text-stone-900 text-sm">
             <div className="w-full md:p-10 p-4 max-w-5xl mx-auto space-y-6">
                 <div>
                     <h2 className="text-2xl font-bold tracking-tight text-stone-950">Orders</h2>
@@ -77,7 +77,7 @@ const Orders = () => {
                 </div>
 
                 {orders.length === 0 ? (
-                    <div className="bg-white rounded-2xl border border-[#e6e4dc] p-12 text-center text-stone-400">
+                    <div className="bg-white rounded-2xl border border-border-subtle p-12 text-center text-stone-400">
                         <p className="text-3xl mb-2">📦</p>
                         <p className="font-medium text-stone-600">No orders received yet.</p>
                     </div>
@@ -86,7 +86,7 @@ const Orders = () => {
                         {orders.map((order) => (
                             <div
                                 key={order._id}
-                                className="bg-white rounded-2xl border border-[#e6e4dc] p-5 shadow-2xs flex flex-col lg:flex-row gap-5 justify-between items-start lg:items-center"
+                                className="bg-white rounded-2xl border border-border-subtle p-5 shadow-2xs flex flex-col lg:flex-row gap-5 justify-between items-start lg:items-center"
                             >
                                 <div className="flex gap-4 max-w-md">
                                     <div className="size-14 shrink-0 rounded-xl bg-stone-100 flex items-center justify-center p-2 border border-stone-200">
@@ -118,7 +118,7 @@ const Orders = () => {
                                             value={order.status || 'Order Placed'}
                                             disabled={updatingOrderId === order._id}
                                             onChange={(e) => handleStatusChange(order._id, e.target.value)}
-                                            className="text-xs font-semibold rounded-xl border border-[#e6e4dc] bg-white px-3 py-2 text-stone-800 focus:outline-none focus:border-amber-500 cursor-pointer disabled:opacity-50"
+                                            className="text-xs font-semibold rounded-xl border border-border-subtle bg-white px-3 py-2 text-stone-800 focus:outline-none focus:border-amber-500 cursor-pointer disabled:opacity-50"
                                         >
                                             {STATUS_OPTIONS.map((st) => (
                                                 <option key={st} value={st}>{st}</option>

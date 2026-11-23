@@ -82,10 +82,10 @@ const AllProductsContent = ({ initialProducts }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#fbf9f4] px-5 py-8 text-stone-900 sm:px-8 xl:px-12">
+    <div className="min-h-screen bg-canvas px-5 py-8 text-stone-900 sm:px-8 xl:px-12">
       {/* Top Search & Filter Bar (Matching Screenshot 2 Style) */}
       <div className="mx-auto max-w-[1440px] mb-8">
-        <div className="flex flex-col sm:flex-row items-center gap-4 rounded-2xl border border-[#e6e4dc] bg-white p-4 shadow-2xs">
+        <div className="flex flex-col sm:flex-row items-center gap-4 rounded-2xl border border-border-subtle bg-white p-4 shadow-2xs">
           <form onSubmit={handleSearchSubmit} className="flex flex-1 items-center gap-3 w-full">
             <svg className="size-4 text-stone-400 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -116,7 +116,7 @@ const AllProductsContent = ({ initialProducts }) => {
               <select
                 value={sort}
                 onChange={handleSortChange}
-                className="rounded-xl border border-stone-300 bg-[#f8f7f2] px-3 py-1.5 text-xs font-semibold text-stone-800 outline-none"
+                className="rounded-xl border border-stone-300 bg-surface-subtle px-3 py-1.5 text-xs font-semibold text-stone-800 outline-none"
               >
                 <option value="newest">Newest</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -145,7 +145,7 @@ const AllProductsContent = ({ initialProducts }) => {
 
         {/* Right Side: Products Catalog */}
         <main className="w-full flex-1">
-          <div className="flex items-center justify-between rounded-2xl border border-[#e6e4dc] bg-white p-4 shadow-2xs mb-6">
+          <div className="flex items-center justify-between rounded-2xl border border-border-subtle bg-white p-4 shadow-2xs mb-6">
             <div className="flex items-center gap-3">
               <h1 className="text-base font-bold text-stone-900">
                 {initialSearch ? `Search results for "${initialSearch}"` : "All Products"}
@@ -158,7 +158,7 @@ const AllProductsContent = ({ initialProducts }) => {
           </div>
 
           {products.length === 0 ? (
-            <div className="rounded-2xl border border-[#e6e4dc] bg-white p-12 text-center shadow-2xs">
+            <div className="rounded-2xl border border-border-subtle bg-white p-12 text-center shadow-2xs">
               <h2 className="text-base font-bold text-stone-900">No products found</h2>
               <p className="mt-1 text-xs text-stone-500 max-w-sm mx-auto">
                 Try loosening your filter parameters, resetting price limits, or exploring other categories.
@@ -186,7 +186,7 @@ const AllProductsContent = ({ initialProducts }) => {
 const AllProducts = ({ initialProducts }) => (
   <Suspense
     fallback={
-      <div className="flex h-screen items-center justify-center bg-[#fbf9f4]">
+      <div className="flex h-screen items-center justify-center bg-canvas">
         <Loading />
       </div>
     }

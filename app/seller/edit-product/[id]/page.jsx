@@ -134,14 +134,14 @@ const EditProduct = () => {
     if (loading) return <Loading />;
 
     return (
-        <div className="flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900">
+        <div className="flex-1 min-h-screen flex flex-col justify-between bg-canvas text-stone-900">
             <div className="w-full md:p-10 p-4 max-w-lg mx-auto">
                 <div className="mb-6">
                     <h2 className="text-2xl font-bold tracking-tight text-stone-950">Edit Listing</h2>
                     <p className="text-xs text-stone-500 font-medium">Update details, restock count, or manage product imagery.</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-5 bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs text-sm">
+                <form onSubmit={handleSubmit} className="space-y-5 bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs text-sm">
                     <ExistingImagesList existingImages={existingImages} onRemoveImage={handleRemoveExistingImage} />
                     <NewImageUploader newFiles={newFiles} onFileChange={handleNewFileChange} onRemoveFile={handleRemoveNewFile} />
                     <ProductDetailsForm

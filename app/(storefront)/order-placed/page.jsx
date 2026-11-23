@@ -1,5 +1,6 @@
 'use client'
 import { useAppContext } from '@/context/AppContext'
+import AuthGate from '@/components/common/AuthGate'
 import Image from 'next/image'
 import { useEffect } from 'react'
 
@@ -24,4 +25,10 @@ const OrderPlaced = () => {
   )
 }
 
-export default OrderPlaced
+export default function OrderPlacedPage() {
+  return (
+    <AuthGate title='Sign in to view order confirmation'>
+      <OrderPlaced />
+    </AuthGate>
+  )
+}

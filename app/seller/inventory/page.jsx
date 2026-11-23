@@ -91,7 +91,7 @@ const ManageStock = () => {
     };
 
     return (
-        <div className="flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900">
+        <div className="flex-1 min-h-screen flex flex-col justify-between bg-canvas text-stone-900">
             {loading ? (
                 <Loading />
             ) : (
@@ -103,7 +103,7 @@ const ManageStock = () => {
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-center w-full overflow-hidden rounded-2xl bg-white border border-[#e6e4dc] shadow-2xs">
+                    <div className="flex flex-col items-center w-full overflow-hidden rounded-2xl bg-white border border-border-subtle shadow-2xs">
                         <table className="table-fixed w-full overflow-hidden text-sm">
                             <thead className="text-stone-900 text-left bg-[#fcfbf7] border-b border-stone-100">
                                 <tr>
@@ -156,7 +156,7 @@ const ManageStock = () => {
 
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <div className="flex items-center border border-[#e6e4dc] rounded-xl overflow-hidden bg-stone-50">
+                                                        <div className="flex items-center border border-border-subtle rounded-xl overflow-hidden bg-stone-50">
                                                             <button 
                                                                 onClick={() => handleQuickIncrement(product._id, -5)}
                                                                 className="px-2.5 py-1.5 text-xs font-bold text-stone-600 hover:bg-stone-200 transition cursor-pointer"

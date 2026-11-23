@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { ACTION_LABELS } from './AuditConstants'
 
 export const StatCard = ({ label, value, sub }) => (
-    <div className='bg-white border border-[#e6e4dc] rounded-2xl p-5 flex flex-col gap-1 shadow-2xs'>
+    <div className='bg-white border border-border-subtle rounded-2xl p-5 flex flex-col gap-1 shadow-2xs'>
         <p className='text-xs text-stone-400 font-semibold uppercase tracking-wider'>{label}</p>
         <p className='text-3xl font-extrabold text-stone-900'>{value?.toLocaleString() ?? '—'}</p>
         {sub && <p className='text-xs text-stone-500 font-medium'>{sub}</p>}
@@ -83,7 +83,7 @@ export default function AuditStats({ summary, topActions, timeline, actionFilter
             </div>
 
             <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-                <div className='bg-white border border-[#e6e4dc] rounded-2xl p-6 shadow-2xs'>
+                <div className='bg-white border border-border-subtle rounded-2xl p-6 shadow-2xs'>
                     <div className='flex items-center justify-between mb-4'>
                         <h3 className='text-sm font-bold text-stone-900 uppercase tracking-wider'>Top Features</h3>
                         <span className='text-[10px] text-stone-400 font-medium'>click to filter feed</span>
@@ -117,7 +117,7 @@ export default function AuditStats({ summary, topActions, timeline, actionFilter
                     </div>
                 </div>
 
-                <div className='bg-white border border-[#e6e4dc] rounded-2xl p-6 flex flex-col shadow-2xs'>
+                <div className='bg-white border border-border-subtle rounded-2xl p-6 flex flex-col shadow-2xs'>
                     <h3 className='text-sm font-bold text-stone-900 uppercase tracking-wider mb-1'>Activity — Last 14 Days</h3>
                     <p className='text-xs text-stone-400 mb-4 font-medium'>Daily event volume</p>
                     <div className='flex-1 flex flex-col justify-end'>

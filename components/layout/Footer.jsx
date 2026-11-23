@@ -15,7 +15,7 @@ const supportLinks = [
 ];
 
 const Footer = () => (
-  <footer id="about" className="mt-16 border-t border-[#e6e4dc] bg-[#141518] pb-10 pt-14 text-stone-400">
+  <footer id="about" className="mt-16 border-t border-border-subtle bg-dark-surface pb-10 pt-14 text-stone-400">
     <LayoutContainer size="wide">
       <div id="contact" className="grid gap-10 border-b border-stone-800 pb-12 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
         <div className="max-w-sm space-y-4">
@@ -55,7 +55,7 @@ const Footer = () => (
           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-white">Get In Touch</h3>
           <p className="mt-4 text-xs text-stone-300">Dedicated customer support available 24/7</p>
           <a className="mt-2 block text-xs text-stone-400 transition hover:text-[#f5c344]" href="tel:+18005550199">
-            +1 (800) 555-0199
+            +91 1234567890
           </a>
           <a className="mt-1 block text-xs text-stone-400 transition hover:text-[#f5c344]" href="mailto:support@quickcart.com">
             support@quickcart.com

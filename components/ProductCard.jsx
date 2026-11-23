@@ -23,11 +23,11 @@ const ProductCard = ({ product, loadEagerly }) => {
     return (
         <div
             onClick={() => router.push('/product/' + product._id)}
-            className="group flex flex-col justify-between rounded-2xl border border-[#e6e4dc] bg-white p-3.5 hover:border-stone-400 hover:shadow-xs transition duration-200 cursor-pointer w-full"
+            className="group flex flex-col justify-between rounded-2xl border border-border-subtle bg-white p-3.5 hover:border-stone-400 hover:shadow-xs transition duration-200 cursor-pointer w-full"
         >
             <div>
                 {/* Image Surface with Badges */}
-                <div className="relative w-full h-48 rounded-xl bg-[#f8f7f2] flex items-center justify-center overflow-hidden p-3">
+                <div className="relative w-full h-48 rounded-xl bg-surface-subtle flex items-center justify-center overflow-hidden p-3">
                     {/* Status Pill Badges */}
                     <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 items-start">
                         {isOutOfStock ? (
@@ -46,7 +46,7 @@ const ProductCard = ({ product, loadEagerly }) => {
                     </div>
 
                     {hasDiscount && discountPct > 0 && !isOutOfStock && (
-                        <span className="absolute top-2.5 right-2.5 z-10 rounded-full bg-[#141518] px-2 py-0.5 text-[10px] font-bold text-[#f5c344] tracking-wide">
+                        <span className="absolute top-2.5 right-2.5 z-10 rounded-full bg-dark-surface px-2 py-0.5 text-[10px] font-bold text-[#f5c344] tracking-wide">
                             {discountPct}% OFF
                         </span>
                     )}

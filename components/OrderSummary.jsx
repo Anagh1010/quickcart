@@ -197,7 +197,7 @@ const OrderSummary = () => {
   }, [user]);
 
   return (
-    <div className="w-full md:w-96 rounded-2xl border border-[#e6e4dc] bg-white p-5 sm:p-6 shadow-2xs">
+    <div className="w-full md:w-96 rounded-2xl border border-border-subtle bg-white p-5 sm:p-6 shadow-2xs">
       <div className="pb-4 border-b border-[#eceae3]">
         <div className="flex items-center justify-between">
           <h2 className="text-base font-bold text-stone-900">Order Summary</h2>
@@ -223,11 +223,11 @@ const OrderSummary = () => {
             Payment Method
           </label>
           <div className="flex flex-col gap-2">
-            <label className={`flex items-center gap-2.5 p-3 rounded-xl border text-xs font-medium cursor-pointer transition ${paymentMethod === 'COD' ? 'border-[#f5c344] bg-[#fef08a]/20' : 'border-[#e6e4dc] hover:bg-stone-50'}`}>
+            <label className={`flex items-center gap-2.5 p-3 rounded-xl border text-xs font-medium cursor-pointer transition ${paymentMethod === 'COD' ? 'border-[#f5c344] bg-[#fef08a]/20' : 'border-border-subtle hover:bg-stone-50'}`}>
               <input type="radio" name="payment" value="COD" checked={paymentMethod === 'COD'} onChange={(e) => setPaymentMethod(e.target.value)} className="accent-[#f5c344] size-3.5" />
               <span className="font-bold text-stone-900">Cash on Delivery (COD)</span>
             </label>
-            <label className={`flex items-center gap-2.5 p-3 rounded-xl border text-xs font-medium cursor-pointer transition ${paymentMethod === 'Online' ? 'border-[#f5c344] bg-[#fef08a]/20' : 'border-[#e6e4dc] hover:bg-stone-50'}`}>
+            <label className={`flex items-center gap-2.5 p-3 rounded-xl border text-xs font-medium cursor-pointer transition ${paymentMethod === 'Online' ? 'border-[#f5c344] bg-[#fef08a]/20' : 'border-border-subtle hover:bg-stone-50'}`}>
               <input type="radio" name="payment" value="Online" checked={paymentMethod === 'Online'} onChange={(e) => setPaymentMethod(e.target.value)} className="accent-[#f5c344] size-3.5" />
               <span className="font-bold text-stone-900">Online Gateway (Cards / UPI / NetBanking)</span>
             </label>

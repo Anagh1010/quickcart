@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 import Loading from "@/components/Loading";
+import AuthGate from "@/components/common/AuthGate";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -101,4 +102,13 @@ const MyOrders = () => {
     );
 };
 
-export default MyOrders;
+export default function MyOrdersPage() {
+    return (
+        <AuthGate
+            title="Sign in to view your orders"
+            description="Sign in to track your purchases and order history."
+        >
+            <MyOrders />
+        </AuthGate>
+    );
+}

@@ -32,7 +32,7 @@ const CatalogSidebar = ({
   return (
     <aside className="w-full md:w-72 shrink-0 space-y-5">
       {/* Dark Cart Overview Panel in Screenshot 2 Style */}
-      <div className="rounded-2xl border border-stone-800 bg-[#141518] p-5 text-white shadow-sm space-y-4">
+      <div className="rounded-2xl border border-stone-800 bg-dark-surface p-5 text-white shadow-sm space-y-4">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">
             SHOPPING BAG
@@ -81,7 +81,7 @@ const CatalogSidebar = ({
       </div>
 
       {/* Filters Card */}
-      <div className="rounded-2xl border border-[#e6e4dc] bg-white p-5 shadow-2xs space-y-5">
+      <div className="rounded-2xl border border-border-subtle bg-white p-5 shadow-2xs space-y-5">
         <div className="flex items-center justify-between pb-3 border-b border-[#eceae3]">
           <h3 className="text-sm font-bold text-stone-900">Filters</h3>
           <button
@@ -129,7 +129,7 @@ const CatalogSidebar = ({
               placeholder="Min"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              className="w-full rounded-lg border border-[#e6e4dc] bg-[#f8f7f2] px-2.5 py-1.5 text-xs outline-none text-center"
+              className="w-full rounded-lg border border-border-subtle bg-surface-subtle px-2.5 py-1.5 text-xs outline-none text-center"
             />
             <span className="text-xs text-stone-400">to</span>
             <input
@@ -137,7 +137,7 @@ const CatalogSidebar = ({
               placeholder="Max"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              className="w-full rounded-lg border border-[#e6e4dc] bg-[#f8f7f2] px-2.5 py-1.5 text-xs outline-none text-center"
+              className="w-full rounded-lg border border-border-subtle bg-surface-subtle px-2.5 py-1.5 text-xs outline-none text-center"
             />
             <button
               type="submit"

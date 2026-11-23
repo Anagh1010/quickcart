@@ -56,7 +56,7 @@ export default function CartAbandonmentPage() {
     const avgRate = totalInCart > 0 ? Math.round((totalAbandoned / totalInCart) * 100) : 0
 
     return (
-        <div className='flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900'>
+        <div className='flex-1 min-h-screen flex flex-col justify-between bg-canvas text-stone-900'>
             <div className='w-full md:p-10 p-4 max-w-5xl mx-auto space-y-8'>
 
                 <div>
@@ -67,7 +67,7 @@ export default function CartAbandonmentPage() {
                 </div>
 
                 {/* Date Picker */}
-                <div className='bg-white rounded-2xl border border-[#e6e4dc] shadow-2xs p-6'>
+                <div className='bg-white rounded-2xl border border-border-subtle shadow-2xs p-6'>
                     <h3 className='text-xs font-bold text-stone-400 uppercase tracking-wider mb-4'>Select Date Range</h3>
                     <div className='flex flex-wrap items-end gap-4'>
                         <div className='flex flex-col gap-1.5'>
@@ -77,7 +77,7 @@ export default function CartAbandonmentPage() {
                                 value={from}
                                 max={to}
                                 onChange={e => setFrom(e.target.value)}
-                                className='border border-[#e6e4dc] rounded-xl px-4 py-2 text-xs text-stone-800 focus:outline-none focus:border-amber-500 bg-white'
+                                className='border border-border-subtle rounded-xl px-4 py-2 text-xs text-stone-800 focus:outline-none focus:border-amber-500 bg-white'
                             />
                         </div>
                         <div className='flex flex-col gap-1.5'>
@@ -88,7 +88,7 @@ export default function CartAbandonmentPage() {
                                 min={from}
                                 max={defaultTo}
                                 onChange={e => setTo(e.target.value)}
-                                className='border border-[#e6e4dc] rounded-xl px-4 py-2 text-xs text-stone-800 focus:outline-none focus:border-amber-500 bg-white'
+                                className='border border-border-subtle rounded-xl px-4 py-2 text-xs text-stone-800 focus:outline-none focus:border-amber-500 bg-white'
                             />
                         </div>
                         <button
@@ -105,21 +105,21 @@ export default function CartAbandonmentPage() {
                 {results !== null && (
                     <>
                         <div className='grid grid-cols-1 sm:grid-cols-3 gap-6'>
-                            <div className='bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs'>
+                            <div className='bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs'>
                                 <span className='text-[10px] font-bold text-stone-400 uppercase tracking-wider'>In Cart (currently)</span>
                                 <div className='flex items-baseline gap-1.5 mt-3'>
                                     <span className='text-3xl font-extrabold text-stone-950'>{totalInCart}</span>
                                     <span className='text-xs text-stone-400 font-medium'>users</span>
                                 </div>
                             </div>
-                            <div className='bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs'>
+                            <div className='bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs'>
                                 <span className='text-[10px] font-bold text-stone-400 uppercase tracking-wider'>Abandoned in Period</span>
                                 <div className='flex items-baseline gap-1.5 mt-3'>
                                     <span className='text-3xl font-extrabold text-amber-800'>{totalAbandoned}</span>
                                     <span className='text-xs text-stone-400 font-medium'>users</span>
                                 </div>
                             </div>
-                            <div className='bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs'>
+                            <div className='bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs'>
                                 <span className='text-[10px] font-bold text-stone-400 uppercase tracking-wider'>Avg Abandonment Rate</span>
                                 <div className='flex items-baseline gap-1.5 mt-3'>
                                     <span className={`text-3xl font-extrabold ${avgRate >= 70 ? 'text-rose-600' : avgRate >= 40 ? 'text-amber-600' : 'text-emerald-600'}`}>
@@ -131,12 +131,12 @@ export default function CartAbandonmentPage() {
 
                         {/* Per-Product Table */}
                         {results.length === 0 ? (
-                            <div className='bg-white rounded-2xl border border-[#e6e4dc] shadow-2xs p-12 text-center text-stone-400'>
+                            <div className='bg-white rounded-2xl border border-border-subtle shadow-2xs p-12 text-center text-stone-400'>
                                 <p className='text-3xl mb-2'>🛒</p>
                                 <p className='font-medium text-stone-600'>None of your products are currently in any user's cart.</p>
                             </div>
                         ) : (
-                            <div className='bg-white rounded-2xl border border-[#e6e4dc] shadow-2xs overflow-hidden'>
+                            <div className='bg-white rounded-2xl border border-border-subtle shadow-2xs overflow-hidden'>
                                 <div className='px-6 py-4 border-b border-stone-100 bg-[#fcfbf7]'>
                                     <h3 className='text-xs font-bold text-stone-900 uppercase tracking-wider'>Product-wise Breakdown</h3>
                                 </div>

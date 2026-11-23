@@ -30,7 +30,7 @@ export default function AuditFeedFilters({
             <select
                 value={actionFilter}
                 onChange={e => onFilterChange('action', e.target.value)}
-                className='border border-[#e6e4dc] bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
+                className='border border-border-subtle bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
             >
                 <option value=''>All Actions</option>
                 {ALL_ACTIONS.map(a => (
@@ -41,7 +41,7 @@ export default function AuditFeedFilters({
             <select
                 value={categoryFilter}
                 onChange={e => onFilterChange('category', e.target.value)}
-                className='border border-[#e6e4dc] bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
+                className='border border-border-subtle bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
             >
                 <option value=''>All Categories</option>
                 {ALL_CATEGORIES.map(v => <option key={v} value={v}>{v}</option>)}
@@ -50,7 +50,7 @@ export default function AuditFeedFilters({
             <select
                 value={outcomeFilter}
                 onChange={e => onFilterChange('outcome', e.target.value)}
-                className='border border-[#e6e4dc] bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
+                className='border border-border-subtle bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
             >
                 <option value=''>All Outcomes</option>
                 {ALL_OUTCOMES.map(v => <option key={v} value={v}>{v}</option>)}
@@ -59,7 +59,7 @@ export default function AuditFeedFilters({
             <select
                 value={resourceFilter}
                 onChange={e => onFilterChange('resource', e.target.value)}
-                className='border border-[#e6e4dc] bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
+                className='border border-border-subtle bg-white text-stone-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-amber-500 cursor-pointer'
             >
                 <option value=''>All Resources</option>
                 {ALL_RESOURCES.map(r => (
@@ -72,14 +72,14 @@ export default function AuditFeedFilters({
                 placeholder='Filter by User ID…'
                 value={userIdInput}
                 onChange={e => onFilterChange('userId', e.target.value)}
-                className='border border-[#e6e4dc] bg-white rounded-xl px-3 py-2 text-xs text-stone-900 focus:outline-none focus:border-amber-500 w-40'
+                className='border border-border-subtle bg-white rounded-xl px-3 py-2 text-xs text-stone-900 focus:outline-none focus:border-amber-500 w-40'
             />
             <input
                 type='text'
                 placeholder='Target ID…'
                 value={resourceIdInput}
                 onChange={e => onFilterChange('resourceId', e.target.value)}
-                className='border border-[#e6e4dc] bg-white rounded-xl px-3 py-2 text-xs text-stone-900 focus:outline-none focus:border-amber-500 w-32'
+                className='border border-border-subtle bg-white rounded-xl px-3 py-2 text-xs text-stone-900 focus:outline-none focus:border-amber-500 w-32'
             />
         </div>
     )

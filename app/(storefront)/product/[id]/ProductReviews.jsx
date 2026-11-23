@@ -16,7 +16,7 @@ const ProductReviews = ({
   user,
 }) => {
   return (
-    <div className="rounded-2xl border border-[#e6e4dc] bg-white p-6 md:p-8 shadow-2xs grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <div className="rounded-2xl border border-border-subtle bg-white p-6 md:p-8 shadow-2xs grid grid-cols-1 lg:grid-cols-3 gap-10">
       {/* Left Column: Star Breakdown & Review Form */}
       <div>
         <h3 className="text-base font-bold text-stone-900 mb-2">Customer Reviews</h3>
@@ -46,7 +46,7 @@ const ProductReviews = ({
             return (
               <div key={star} className="flex items-center text-xs gap-3">
                 <span className="w-12 text-stone-500 font-medium">{star} star</span>
-                <div className="w-full bg-[#f8f7f2] h-2 rounded-full overflow-hidden border border-[#e6e4dc]">
+                <div className="w-full bg-surface-subtle h-2 rounded-full overflow-hidden border border-border-subtle">
                   <div
                     className="bg-[#f5c344] h-full rounded-full transition-all duration-500"
                     style={{ width: `${pct}%` }}
@@ -70,7 +70,7 @@ const ProductReviews = ({
               </label>
               <select
                 name="rating"
-                className="w-full rounded-xl border border-[#e6e4dc] bg-[#f8f7f2] px-3 py-2 text-xs font-medium text-stone-800 outline-none focus:border-stone-400"
+                className="w-full rounded-xl border border-border-subtle bg-surface-subtle px-3 py-2 text-xs font-medium text-stone-800 outline-none focus:border-stone-400"
               >
                 <option value="5">⭐⭐⭐⭐⭐ 5 - Excellent</option>
                 <option value="4">⭐⭐⭐⭐ 4 - Good</option>
@@ -87,7 +87,7 @@ const ProductReviews = ({
                 name="comment"
                 placeholder="What did you like or dislike about this product?"
                 rows="3"
-                className="w-full rounded-xl border border-[#e6e4dc] bg-[#f8f7f2] px-3 py-2 text-xs text-stone-800 outline-none focus:border-stone-400 resize-none"
+                className="w-full rounded-xl border border-border-subtle bg-surface-subtle px-3 py-2 text-xs text-stone-800 outline-none focus:border-stone-400 resize-none"
               />
             </div>
             <button

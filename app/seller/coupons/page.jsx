@@ -109,7 +109,7 @@ const ManageCoupons = () => {
     };
 
     return (
-        <div className="flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900">
+        <div className="flex-1 min-h-screen flex flex-col justify-between bg-canvas text-stone-900">
             {loading ? (
                 <Loading />
             ) : (
@@ -120,7 +120,7 @@ const ManageCoupons = () => {
                     </div>
 
                     {/* Create Coupon Form */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs h-fit">
+                    <div className="bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs h-fit">
                         <h3 className="text-sm font-bold text-stone-950 mb-4 pb-2 border-b border-stone-100 uppercase tracking-wider">
                             Launch Coupon
                         </h3>
@@ -133,7 +133,7 @@ const ManageCoupons = () => {
                                     placeholder="E.g., SAVE20, FREESHIP"
                                     value={code}
                                     onChange={(e) => setCode(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 uppercase text-xs"
+                                    className="w-full px-3.5 py-2.5 border border-border-subtle rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 uppercase text-xs"
                                     required
                                 />
                             </div>
@@ -143,7 +143,7 @@ const ManageCoupons = () => {
                                 <select 
                                     value={discountType} 
                                     onChange={(e) => setDiscountType(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 cursor-pointer text-xs"
+                                    className="w-full px-3.5 py-2.5 border border-border-subtle rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 cursor-pointer text-xs"
                                 >
                                     <option value="percentage">Percentage Discount (%)</option>
                                     <option value="flat">Flat Dollar Discount ($)</option>
@@ -157,7 +157,7 @@ const ManageCoupons = () => {
                                     placeholder={discountType === "percentage" ? "Value (e.g. 20 for 20%)" : "Value (e.g. 15 for $15)"}
                                     value={discountValue}
                                     onChange={(e) => setDiscountValue(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 text-xs"
+                                    className="w-full px-3.5 py-2.5 border border-border-subtle rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 text-xs"
                                     min="1"
                                     required
                                 />
@@ -170,7 +170,7 @@ const ManageCoupons = () => {
                                     placeholder="E.g., 50 (0 for no limit)"
                                     value={minCartAmount}
                                     onChange={(e) => setMinCartAmount(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 text-xs"
+                                    className="w-full px-3.5 py-2.5 border border-border-subtle rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 text-xs"
                                     min="0"
                                 />
                             </div>
@@ -181,7 +181,7 @@ const ManageCoupons = () => {
                                     type="date"
                                     value={expiryDate}
                                     onChange={(e) => setExpiryDate(e.target.value)}
-                                    className="w-full px-3.5 py-2.5 border border-[#e6e4dc] rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 cursor-pointer text-xs"
+                                    className="w-full px-3.5 py-2.5 border border-border-subtle rounded-xl outline-none focus:border-amber-500 bg-white font-medium text-stone-800 cursor-pointer text-xs"
                                     required
                                 />
                             </div>
@@ -197,7 +197,7 @@ const ManageCoupons = () => {
                     </div>
 
                     {/* Existing Coupon List Table */}
-                    <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs h-fit">
+                    <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs h-fit">
                         <h3 className="text-sm font-bold text-stone-950 mb-4 pb-2 border-b border-stone-100 uppercase tracking-wider">
                             Active Coupons
                         </h3>

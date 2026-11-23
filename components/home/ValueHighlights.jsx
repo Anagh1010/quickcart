@@ -35,9 +35,9 @@ const ValueHighlights = () => (
     />
     <div className="mx-auto mt-6 grid w-full max-w-[1440px] gap-5 px-5 sm:px-8 md:grid-cols-2 lg:grid-cols-3 xl:px-12">
       {/* Bento Card 1: Guarantee & Protection */}
-      <article className="rounded-2xl border border-[#e6e4dc] bg-white p-6 shadow-2xs">
+      <article className="rounded-2xl border border-border-subtle bg-white p-6 shadow-2xs">
         <div className="flex items-center gap-2.5 pb-4 border-b border-[#eceae3]">
-          <div className="flex size-7 items-center justify-center rounded-lg bg-[#f8f7f2] text-stone-700">
+          <div className="flex size-7 items-center justify-center rounded-lg bg-surface-subtle text-stone-700">
             <svg className="size-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
@@ -55,9 +55,9 @@ const ValueHighlights = () => (
       </article>
 
       {/* Bento Card 2: Fast Shipping */}
-      <article className="rounded-2xl border border-[#e6e4dc] bg-white p-6 shadow-2xs">
+      <article className="rounded-2xl border border-border-subtle bg-white p-6 shadow-2xs">
         <div className="flex items-center gap-2.5 pb-4 border-b border-[#eceae3]">
-          <div className="flex size-7 items-center justify-center rounded-lg bg-[#f8f7f2] text-stone-700">
+          <div className="flex size-7 items-center justify-center rounded-lg bg-surface-subtle text-stone-700">
             <svg className="size-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
@@ -75,9 +75,9 @@ const ValueHighlights = () => (
       </article>
 
       {/* Bento Card 3: Quick Links */}
-      <article className="rounded-2xl border border-[#e6e4dc] bg-white p-6 shadow-2xs md:col-span-2 lg:col-span-1">
+      <article className="rounded-2xl border border-border-subtle bg-white p-6 shadow-2xs md:col-span-2 lg:col-span-1">
         <div className="flex items-center gap-2.5 pb-4 border-b border-[#eceae3]">
-          <div className="flex size-7 items-center justify-center rounded-lg bg-[#f8f7f2] text-stone-700">
+          <div className="flex size-7 items-center justify-center rounded-lg bg-surface-subtle text-stone-700">
             <svg className="size-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
             </svg>

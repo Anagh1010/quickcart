@@ -27,7 +27,7 @@ const CategoryRail = () => (
         <Link
           key={category.name}
           href={getCategoryHref(category.filter)}
-          className="group flex flex-col justify-between rounded-2xl border border-[#e6e4dc] bg-white p-5 hover:border-stone-400 hover:shadow-xs transition duration-200"
+          className="group flex flex-col justify-between rounded-2xl border border-border-subtle bg-white p-5 hover:border-stone-400 hover:shadow-xs transition duration-200"
         >
           {/* Category Slot Badge */}
           <div className="flex items-center justify-between">
@@ -38,7 +38,7 @@ const CategoryRail = () => (
           </div>
 
           {/* Product Image */}
-          <div className="my-4 flex h-32 items-center justify-center rounded-xl bg-[#f8f7f2] p-3">
+          <div className="my-4 flex h-32 items-center justify-center rounded-xl bg-surface-subtle p-3">
             <Image
               alt={category.name}
               className="max-h-24 max-w-24 object-contain transition duration-200 group-hover:scale-105"

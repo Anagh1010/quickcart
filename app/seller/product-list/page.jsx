@@ -69,7 +69,7 @@ const ProductList = () => {
   }, [user])
 
   return (
-    <div className="flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900">
+    <div className="flex-1 min-h-screen flex flex-col justify-between bg-canvas text-stone-900">
       {loading ? (
         <Loading />
       ) : (
@@ -79,7 +79,7 @@ const ProductList = () => {
             <p className="text-xs text-stone-500 font-medium mt-1">View, edit details, or remove your store product listings.</p>
           </div>
 
-          <div className="flex flex-col items-center w-full overflow-hidden rounded-2xl bg-white border border-[#e6e4dc] shadow-2xs">
+          <div className="flex flex-col items-center w-full overflow-hidden rounded-2xl bg-white border border-border-subtle shadow-2xs">
             <table className="table-fixed w-full overflow-hidden text-sm">
               <thead className="text-stone-900 text-left bg-[#fcfbf7] border-b border-stone-100">
                 <tr>
@@ -115,7 +115,7 @@ const ProductList = () => {
                         <div className="flex items-center justify-center gap-2">
                           <button 
                             onClick={() => router.push(`/product/${product._id}`)} 
-                            className="p-2 bg-stone-50 hover:bg-stone-100 border border-[#e6e4dc] rounded-xl text-xs font-semibold text-stone-700 transition cursor-pointer flex items-center gap-1"
+                            className="p-2 bg-stone-50 hover:bg-stone-100 border border-border-subtle rounded-xl text-xs font-semibold text-stone-700 transition cursor-pointer flex items-center gap-1"
                             title="Visit Page"
                           >
                             <span>Visit</span>

@@ -71,19 +71,19 @@ const MerchantDashboard = () => {
     const totalCategorySales = categoryData.reduce((acc, c) => acc + c.value, 0) || 1;
 
     return (
-        <div className="min-h-screen flex-1 bg-[#fbf9f4] text-[#141518]">
+        <div className="min-h-screen flex-1 bg-canvas text-dark-surface">
             <div className="mx-auto w-full max-w-7xl space-y-8 p-4 md:p-10">
                 {/* Header Section */}
                 <div>
                     <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-800">Seller center</p>
-                    <h2 className="mt-2 text-3xl font-bold tracking-tight text-[#141518]">Business overview</h2>
+                    <h2 className="mt-2 text-3xl font-bold tracking-tight text-dark-surface">Business overview</h2>
                     <p className="mt-2 text-sm font-medium text-stone-500">Revenue, orders, products, and category performance.</p>
                 </div>
 
                 {/* 📊 KPI Summary Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Revenue Card */}
-                    <div className="flex flex-col justify-between rounded-2xl border border-[#141518] bg-[#141518] p-6 shadow-xs">
+                    <div className="flex flex-col justify-between rounded-2xl border border-dark-surface bg-dark-surface p-6 shadow-xs">
                         <span className="text-xs font-bold uppercase tracking-wider text-stone-400">Total Sales Revenue</span>
                         <div className="flex items-baseline gap-1.5 mt-3">
                             <span className="text-3xl font-extrabold text-[#f5c344]">{currency}{totalRevenue.toLocaleString()}</span>
@@ -92,19 +92,19 @@ const MerchantDashboard = () => {
                     </div>
 
                     {/* Orders Card */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-xs flex flex-col justify-between">
+                    <div className="bg-white p-6 rounded-2xl border border-border-subtle shadow-xs flex flex-col justify-between">
                         <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Fulfillment Orders</span>
                         <div className="flex items-baseline gap-1.5 mt-3">
-                            <span className="text-3xl font-extrabold text-[#141518]">{totalOrdersCount}</span>
+                            <span className="text-3xl font-extrabold text-dark-surface">{totalOrdersCount}</span>
                             <span className="text-xs text-stone-400 font-medium">Transactions</span>
                         </div>
                     </div>
 
                     {/* Active Products Card */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-xs flex flex-col justify-between">
+                    <div className="bg-white p-6 rounded-2xl border border-border-subtle shadow-xs flex flex-col justify-between">
                         <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">Products Listed</span>
                         <div className="flex items-baseline gap-1.5 mt-3">
-                            <span className="text-3xl font-extrabold text-[#141518]">{totalProductsCount}</span>
+                            <span className="text-3xl font-extrabold text-dark-surface">{totalProductsCount}</span>
                             <span className="text-xs text-stone-400 font-medium">Active listings</span>
                         </div>
                     </div>
@@ -113,7 +113,7 @@ const MerchantDashboard = () => {
                 {/* 📈 Charts Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Line Area Chart for Sales Timeline */}
-                    <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-xs">
+                    <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-border-subtle shadow-xs">
                         <h3 className="text-sm font-bold text-stone-900 mb-6 pb-2 border-b border-[#f0eee6] uppercase tracking-wider">Sales Revenue Growth</h3>
                         
                         {timelineData.length === 0 ? (
@@ -174,7 +174,7 @@ const MerchantDashboard = () => {
                     </div>
 
                     {/* Sales category share breakdown */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-xs">
+                    <div className="bg-white p-6 rounded-2xl border border-border-subtle shadow-xs">
                         <h3 className="text-sm font-bold text-stone-900 mb-6 pb-2 border-b border-[#f0eee6] uppercase tracking-wider">Category sales share</h3>
                         
                         {categoryData.length === 0 ? (
@@ -189,7 +189,7 @@ const MerchantDashboard = () => {
                                                 <span className="text-stone-700">{c.name}</span>
                                                 <span className="text-amber-800">{currency}{c.value.toLocaleString()} ({pct.toFixed(0)}%)</span>
                                             </div>
-                                            <div className="w-full bg-[#f3f1ea] h-2.5 rounded-full overflow-hidden border border-[#e6e4dc]/70">
+                                            <div className="w-full bg-[#f3f1ea] h-2.5 rounded-full overflow-hidden border border-border-subtle/70">
                                                 <div 
                                                     className="bg-[#e6b02e] h-full rounded-full transition-all duration-500"
                                                     style={{ width: `${pct}%` }}

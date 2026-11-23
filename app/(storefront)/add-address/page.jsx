@@ -3,6 +3,7 @@ import my_location_image from "@/assets/my_location_image.svg";
 import Image from "next/image";
 import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
+import AuthGate from "@/components/common/AuthGate";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -105,4 +106,13 @@ const AddAddress = () => {
     );
 };
 
-export default AddAddress;
+export default function AddAddressPage() {
+    return (
+        <AuthGate
+            title="Sign in to manage addresses"
+            description="Sign in to save a shipping address for checkout."
+        >
+            <AddAddress />
+        </AuthGate>
+    );
+}

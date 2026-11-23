@@ -23,7 +23,7 @@ export default function ProductDetailsForm({
                     id="product-name"
                     type="text"
                     placeholder="Product Title"
-                    className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+                    className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
                     onChange={(e) => setName(e.target.value)}
                     value={name}
                     required
@@ -37,7 +37,7 @@ export default function ProductDetailsForm({
                 <textarea
                     id="product-description"
                     rows={3}
-                    className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 resize-none leading-relaxed text-xs"
+                    className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 resize-none leading-relaxed text-xs"
                     placeholder="Tell buyers about your product..."
                     onChange={(e) => setDescription(e.target.value)}
                     value={description}
@@ -52,7 +52,7 @@ export default function ProductDetailsForm({
                     </label>
                     <select
                         id="category"
-                        className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs cursor-pointer"
+                        className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs cursor-pointer"
                         onChange={(e) => setCategory(e.target.value)}
                         value={category}
                     >
@@ -70,7 +70,7 @@ export default function ProductDetailsForm({
                         id="product-stock"
                         type="number"
                         placeholder="0"
-                        className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+                        className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
                         onChange={(e) => setStock(e.target.value)}
                         value={stock}
                         min="0"
@@ -86,7 +86,7 @@ export default function ProductDetailsForm({
                         id="product-price"
                         type="number"
                         placeholder="0"
-                        className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+                        className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
                         onChange={(e) => setPrice(e.target.value)}
                         value={price}
                         min="1"
@@ -102,7 +102,7 @@ export default function ProductDetailsForm({
                         id="offer-price"
                         type="number"
                         placeholder="0"
-                        className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+                        className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
                         onChange={(e) => setOfferPrice(e.target.value)}
                         value={offerPrice}
                         min="1"

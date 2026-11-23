@@ -39,7 +39,7 @@ const FeaturedProduct = () => {
 
       <div className="mx-auto mt-6 grid w-full max-w-[1440px] grid-cols-1 gap-5 px-5 sm:grid-cols-2 sm:px-8 lg:grid-cols-3 xl:px-12">
         {collections.map(({ id, image, code, title, description }) => (
-          <article key={id} className="group relative min-h-80 overflow-hidden rounded-2xl md:rounded-3xl bg-[#141518] border border-stone-800 shadow-sm">
+          <article key={id} className="group relative min-h-80 overflow-hidden rounded-2xl md:rounded-3xl bg-dark-surface border border-stone-800 shadow-sm">
             <Image
               fill
               src={image}
@@ -47,7 +47,7 @@ const FeaturedProduct = () => {
               sizes="(max-width: 639px) calc(100vw - 2.5rem), (max-width: 1023px) calc(50vw - 2.625rem), (max-width: 1279px) calc(33.333vw - 2.167rem), (max-width: 1439px) calc(33.333vw - 2.833rem), 27.2rem"
               className="object-cover opacity-80 transition duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#141518] via-[#141518]/80 to-transparent p-6 pt-20 text-white">
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-dark-surface via-dark-surface/80 to-transparent p-6 pt-20 text-white">
               <span className="rounded bg-[#fef08a] px-2 py-0.5 font-mono text-[10px] font-bold text-[#854d0e] border border-[#fde047]">
                 {code}
               </span>

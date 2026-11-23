@@ -10,7 +10,7 @@ const MetaItem = ({ icon, children }) => (
 export default function LogResults({ logs, loading, expanded, setExpanded, pages, filters, setFilters }) {
   return (
     <>
-      <div className="overflow-hidden rounded-2xl border border-[#e6e4dc] bg-white shadow-2xs">
+      <div className="overflow-hidden rounded-2xl border border-border-subtle bg-white shadow-2xs">
         {loading ? (
           <div className="flex h-64 items-center justify-center">
             <div className="size-8 animate-spin rounded-full border-2 border-[#f5c344] border-t-transparent" />
@@ -68,7 +68,7 @@ export default function LogResults({ logs, loading, expanded, setExpanded, pages
                 {expanded === log._id && (
                   <div className="mt-3 space-y-2">
                     {log.stack && (
-                      <pre className="max-h-64 overflow-x-auto overflow-y-auto whitespace-pre-wrap rounded-xl border border-[#e6e4dc] bg-[#f8f7f2] p-4 font-mono text-xs text-rose-700">
+                      <pre className="max-h-64 overflow-x-auto overflow-y-auto whitespace-pre-wrap rounded-xl border border-border-subtle bg-surface-subtle p-4 font-mono text-xs text-rose-700">
                         {log.stack}
                       </pre>
                     )}
@@ -90,7 +90,7 @@ export default function LogResults({ logs, loading, expanded, setExpanded, pages
           <button
             disabled={filters.page <= 1}
             onClick={() => setFilters((f) => ({ ...f, page: f.page - 1 }))}
-            className="rounded-xl border border-[#e6e4dc] bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition-colors hover:border-amber-500 disabled:opacity-40"
+            className="rounded-xl border border-border-subtle bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition-colors hover:border-amber-500 disabled:opacity-40"
           >
             ← Prev
           </button>
@@ -98,7 +98,7 @@ export default function LogResults({ logs, loading, expanded, setExpanded, pages
           <button
             disabled={filters.page >= pages}
             onClick={() => setFilters((f) => ({ ...f, page: f.page + 1 }))}
-            className="rounded-xl border border-[#e6e4dc] bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition-colors hover:border-amber-500 disabled:opacity-40"
+            className="rounded-xl border border-border-subtle bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition-colors hover:border-amber-500 disabled:opacity-40"
           >
             Next →
           </button>

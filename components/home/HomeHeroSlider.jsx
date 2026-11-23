@@ -84,7 +84,7 @@ const HomeHeroSlider = ({ products }) => {
     <section aria-label="Featured Offers" className="pt-6 sm:pt-8">
       <LayoutContainer size="wide">
         {/* Dark Hero Card Banner */}
-        <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-[#141518] text-white p-6 sm:p-8 md:p-10 border border-stone-800 shadow-sm">
+        <div className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-dark-surface text-white p-6 sm:p-8 md:p-10 border border-stone-800 shadow-sm">
           <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
             {/* Left Side: Product Profile */}
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">

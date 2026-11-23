@@ -1,6 +1,7 @@
 'use client'
 import React from "react";
 import OrderSummary from "@/components/OrderSummary";
+import AuthGate from "@/components/common/AuthGate";
 import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 
@@ -8,10 +9,10 @@ const Cart = () => {
   const { products, router, cartItems, addToCart, updateCartQuantity, getCartCount, currency } = useAppContext();
 
   return (
-    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-5 pb-20 pt-8 sm:px-8 md:flex-row xl:px-12 bg-[#fbf9f4]">
+    <div className="mx-auto flex w-full max-w-[1440px] flex-col gap-8 px-5 pb-20 pt-8 sm:px-8 md:flex-row xl:px-12 bg-canvas">
       <div className="flex-1">
         {/* Shopping Cart Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b border-[#e6e4dc] gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 pb-4 border-b border-border-subtle gap-2">
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-xl sm:text-2xl font-bold text-stone-900">
@@ -25,13 +26,13 @@ const Cart = () => {
               Review your items and proceed to secure checkout
             </p>
           </div>
-          <span className="text-xs font-mono font-bold text-stone-700 bg-white border border-[#e6e4dc] rounded-lg px-3 py-1.5 self-start sm:self-auto">
+          <span className="text-xs font-mono font-bold text-stone-700 bg-white border border-border-subtle rounded-lg px-3 py-1.5 self-start sm:self-auto">
             {getCartCount()} items in cart
           </span>
         </div>
 
         {/* Cart Items Table */}
-        <div className="rounded-2xl border border-[#e6e4dc] bg-white p-4 sm:p-6 shadow-2xs overflow-hidden">
+        <div className="rounded-2xl border border-border-subtle bg-white p-4 sm:p-6 shadow-2xs overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full table-auto text-xs">
               <thead className="text-left border-b border-[#f0eee6]">
@@ -60,7 +61,7 @@ const Cart = () => {
                     <tr key={itemId} className="hover:bg-stone-50/50 transition">
                       <td className="py-4 pr-3">
                         <div className="flex items-center gap-3">
-                          <div className="size-14 rounded-xl bg-[#f8f7f2] border border-[#e6e4dc] p-1.5 flex items-center justify-center shrink-0">
+                          <div className="size-14 rounded-xl bg-surface-subtle border border-border-subtle p-1.5 flex items-center justify-center shrink-0">
                             <Image
                               src={product.image[0]}
                               alt={product.name}
@@ -132,4 +133,13 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default function CartPage() {
+  return (
+    <AuthGate
+      title="Sign in to view your cart"
+      description="Sign in to review your saved items and proceed to checkout."
+    >
+      <Cart />
+    </AuthGate>
+  );
+}

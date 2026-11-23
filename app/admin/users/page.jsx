@@ -63,7 +63,7 @@ export default function AdminUsersPage() {
     )
 
     return (
-        <div className='flex-1 min-h-screen bg-[#fbf9f4] text-stone-900'>
+        <div className='flex-1 min-h-screen bg-canvas text-stone-900'>
             <div className='w-full md:p-10 p-4 max-w-5xl mx-auto space-y-6'>
 
                 <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
@@ -76,11 +76,11 @@ export default function AdminUsersPage() {
                         placeholder='Search by name or email...'
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                        className='border border-[#e6e4dc] bg-white text-stone-800 placeholder-stone-400 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 w-full sm:w-72 shadow-2xs'
+                        className='border border-border-subtle bg-white text-stone-800 placeholder-stone-400 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 w-full sm:w-72 shadow-2xs'
                     />
                 </div>
 
-                <div className='bg-white rounded-2xl border border-[#e6e4dc] shadow-2xs overflow-hidden'>
+                <div className='bg-white rounded-2xl border border-border-subtle shadow-2xs overflow-hidden'>
                     {loading ? (
                         <div className='flex items-center justify-center h-64'>
                             <div className='animate-spin size-8 border-2 border-amber-500 border-t-transparent rounded-full' />
@@ -138,7 +138,7 @@ export default function AdminUsersPage() {
                                                             className={`px-3 py-1 rounded-lg text-xs font-semibold transition-all border ${
                                                                 user.role === role
                                                                     ? 'bg-stone-100 text-stone-400 border-stone-200 cursor-not-allowed'
-                                                                    : 'bg-white hover:bg-[#f5c344] hover:text-stone-900 hover:border-amber-400 text-stone-700 border-[#e6e4dc] cursor-pointer'
+                                                                    : 'bg-white hover:bg-[#f5c344] hover:text-stone-900 hover:border-amber-400 text-stone-700 border-border-subtle cursor-pointer'
                                                             } ${updating === user._id ? 'opacity-50' : ''}`}
                                                         >
                                                             {updating === user._id ? '...' : role}

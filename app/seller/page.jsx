@@ -67,14 +67,14 @@ const AddProduct = () => {
   };
 
   return (
-    <div className="flex-1 min-h-screen flex flex-col justify-between bg-[#fbf9f4] text-stone-900">
+    <div className="flex-1 min-h-screen flex flex-col justify-between bg-canvas text-stone-900">
       <div className="w-full md:p-10 p-4 max-w-lg mx-auto">
         <div className="mb-6">
           <h2 className="text-2xl font-bold tracking-tight text-stone-950">Add Product</h2>
           <p className="text-xs text-stone-500 font-medium mt-1">Create a new listing for your tech store catalog.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs text-sm">
+        <form onSubmit={handleSubmit} className="space-y-5 bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs text-sm">
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-stone-500 mb-2">Product Images</p>
             <div className="flex flex-wrap items-center gap-3">
@@ -92,7 +92,7 @@ const AddProduct = () => {
                     accept="image/*"
                   />
                   <Image
-                    className="size-16 rounded-xl border border-[#e6e4dc] p-1 object-contain hover:border-amber-400 transition bg-stone-50"
+                    className="size-16 rounded-xl border border-border-subtle p-1 object-contain hover:border-amber-400 transition bg-stone-50"
                     src={files[index] ? URL.createObjectURL(files[index]) : "/assets/upload_area.png"}
                     alt="upload"
                     width={64}
@@ -125,7 +125,7 @@ const AddProduct = () => {
               id="product-name"
               type="text"
               placeholder="e.g. Wireless Noise-Cancelling Headphones"
-              className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+              className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
               onChange={(e) => setName(e.target.value)}
               value={name}
               required
@@ -139,7 +139,7 @@ const AddProduct = () => {
             <textarea
               id="product-description"
               rows={3}
-              className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 resize-none leading-relaxed text-xs"
+              className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 resize-none leading-relaxed text-xs"
               placeholder="Highlight specifications, warranty, and features..."
               onChange={(e) => setDescription(e.target.value)}
               value={description}
@@ -154,7 +154,7 @@ const AddProduct = () => {
               </label>
               <select
                 id="category"
-                className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs cursor-pointer"
+                className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs cursor-pointer"
                 onChange={(e) => setCategory(e.target.value)}
                 defaultValue={category}
               >
@@ -176,7 +176,7 @@ const AddProduct = () => {
                 id="product-stock"
                 type="number"
                 placeholder="0"
-                className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+                className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
                 onChange={(e) => setStock(e.target.value)}
                 value={stock}
                 min="0"
@@ -192,7 +192,7 @@ const AddProduct = () => {
                 id="product-price"
                 type="number"
                 placeholder="0"
-                className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+                className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
                 onChange={(e) => setPrice(e.target.value)}
                 value={price}
                 min="1"
@@ -208,7 +208,7 @@ const AddProduct = () => {
                 id="offer-price"
                 type="number"
                 placeholder="0"
-                className="outline-none py-2.5 px-3.5 rounded-xl border border-[#e6e4dc] bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
+                className="outline-none py-2.5 px-3.5 rounded-xl border border-border-subtle bg-white font-medium text-stone-800 focus:border-amber-500 text-xs"
                 onChange={(e) => setOfferPrice(e.target.value)}
                 value={offerPrice}
                 min="1"

@@ -32,7 +32,7 @@ export default function AdminSellersPage() {
     )
 
     return (
-        <div className='flex-1 min-h-screen bg-[#fbf9f4] text-stone-900'>
+        <div className='flex-1 min-h-screen bg-canvas text-stone-900'>
             <div className='w-full md:p-10 p-4 max-w-5xl mx-auto space-y-6'>
 
                 <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
@@ -45,7 +45,7 @@ export default function AdminSellersPage() {
                         placeholder='Search sellers...'
                         value={search}
                         onChange={e => setSearch(e.target.value)}
-                        className='border border-[#e6e4dc] bg-white text-stone-800 placeholder-stone-400 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 w-full sm:w-72 shadow-2xs'
+                        className='border border-border-subtle bg-white text-stone-800 placeholder-stone-400 rounded-xl px-4 py-2.5 text-xs focus:outline-none focus:border-amber-500 w-full sm:w-72 shadow-2xs'
                     />
                 </div>
 
@@ -57,7 +57,7 @@ export default function AdminSellersPage() {
                     ) : filtered.length === 0 ? (
                         <div className='col-span-3 text-center py-16 text-stone-400 font-medium text-sm'>No sellers found</div>
                     ) : filtered.map(seller => (
-                        <div key={seller._id} className='bg-white p-6 rounded-2xl border border-[#e6e4dc] shadow-2xs hover:border-amber-400 transition-colors'>
+                        <div key={seller._id} className='bg-white p-6 rounded-2xl border border-border-subtle shadow-2xs hover:border-amber-400 transition-colors'>
                             <div className='flex items-center gap-3 mb-4'>
                                 {seller.imageUrl ? (
                                     <img
@@ -79,11 +79,11 @@ export default function AdminSellersPage() {
                                 </div>
                             </div>
                             <div className='grid grid-cols-2 gap-3 mb-4'>
-                                <div className='bg-[#fcfbf7] rounded-xl p-3 text-center border border-[#e6e4dc]'>
+                                <div className='bg-[#fcfbf7] rounded-xl p-3 text-center border border-border-subtle'>
                                     <p className='text-2xl font-extrabold text-amber-800'>{seller.productCount}</p>
                                     <p className='text-stone-400 text-[10px] mt-0.5 uppercase tracking-wider font-bold'>Products</p>
                                 </div>
-                                <div className='bg-[#fcfbf7] rounded-xl p-3 text-center border border-[#e6e4dc]'>
+                                <div className='bg-[#fcfbf7] rounded-xl p-3 text-center border border-border-subtle'>
                                     <p className='text-2xl font-extrabold text-stone-900'>{seller.orderCount}</p>
                                     <p className='text-stone-400 text-[10px] mt-0.5 uppercase tracking-wider font-bold'>Orders</p>
                                 </div>

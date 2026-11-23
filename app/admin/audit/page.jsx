@@ -157,7 +157,7 @@ export default function AdminAuditPage() {
     const handleClearOld = (days = 30) => setConfirmAction({ type: 'old', days })
 
     return (
-        <div className='flex-1 min-h-screen bg-[#fbf9f4] text-stone-900'>
+        <div className='flex-1 min-h-screen bg-canvas text-stone-900'>
             <div className='w-full md:p-10 p-4 max-w-7xl mx-auto space-y-8'>
                 <div className='flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
                     <div>
@@ -186,7 +186,7 @@ export default function AdminAuditPage() {
                         </button>
                         <button
                             onClick={() => { fetchFeed(); fetchSummary(); }}
-                            className='rounded-xl border border-[#e6e4dc] bg-white px-3 py-1.5 text-xs text-stone-600 transition-colors hover:border-amber-400 cursor-pointer shadow-2xs'
+                            className='rounded-xl border border-border-subtle bg-white px-3 py-1.5 text-xs text-stone-600 transition-colors hover:border-amber-400 cursor-pointer shadow-2xs'
                         >
                             Refresh
                         </button>
@@ -203,7 +203,7 @@ export default function AdminAuditPage() {
                     />
                 )}
 
-                <div className='bg-white border border-[#e6e4dc] rounded-2xl overflow-hidden shadow-2xs'>
+                <div className='bg-white border border-border-subtle rounded-2xl overflow-hidden shadow-2xs'>
                     <AuditFeedFilters
                         actionFilter={actionFilter}
                         resourceFilter={resourceFilter}

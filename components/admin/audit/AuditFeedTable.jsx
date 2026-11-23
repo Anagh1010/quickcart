@@ -61,7 +61,7 @@ export default function AuditFeedTable({ logs, loading, page, pages, onPageChang
                     <button
                         onClick={() => onPageChange(Math.max(1, page - 1))}
                         disabled={page === 1}
-                        className='text-xs px-3 py-1.5 rounded-lg border border-[#e6e4dc] bg-white disabled:opacity-40 hover:bg-stone-50 cursor-pointer'
+                        className='text-xs px-3 py-1.5 rounded-lg border border-border-subtle bg-white disabled:opacity-40 hover:bg-stone-50 cursor-pointer'
                     >
                         ← Prev
                     </button>
@@ -69,7 +69,7 @@ export default function AuditFeedTable({ logs, loading, page, pages, onPageChang
                     <button
                         onClick={() => onPageChange(Math.min(pages, page + 1))}
                         disabled={page === pages}
-                        className='text-xs px-3 py-1.5 rounded-lg border border-[#e6e4dc] bg-white disabled:opacity-40 hover:bg-stone-50 cursor-pointer'
+                        className='text-xs px-3 py-1.5 rounded-lg border border-border-subtle bg-white disabled:opacity-40 hover:bg-stone-50 cursor-pointer'
                     >
                         Next →
                     </button>
@@ -77,14 +77,14 @@ export default function AuditFeedTable({ logs, loading, page, pages, onPageChang
             )}
 
             {selectedLog && (
-                <div className='border-t border-[#e6e4dc] p-6 bg-stone-50'>
+                <div className='border-t border-border-subtle p-6 bg-stone-50'>
                     <div className='flex items-center justify-between gap-4 mb-3'>
                         <h4 className='text-xs font-bold uppercase tracking-wider text-stone-700'>Event Details</h4>
                         <button onClick={() => setSelectedLog(null)} className='text-xs text-stone-400 hover:text-stone-700 cursor-pointer font-bold'>
                             Close ✕
                         </button>
                     </div>
-                    <pre className='text-xs text-stone-700 overflow-auto max-h-72 bg-white border border-[#e6e4dc] rounded-xl p-4'>
+                    <pre className='text-xs text-stone-700 overflow-auto max-h-72 bg-white border border-border-subtle rounded-xl p-4'>
                         {JSON.stringify({
                             action: selectedLog.action,
                             category: selectedLog.category,

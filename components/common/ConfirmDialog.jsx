@@ -38,7 +38,7 @@ export default function ConfirmDialog({
                 className='absolute inset-0 bg-stone-950/50 backdrop-blur-xs'
                 onClick={() => !loading && onCancel?.()}
             />
-            <div className='relative w-full max-w-md rounded-2xl border border-[#e6e4dc] bg-[#fbf9f4] p-6 shadow-xl'>
+            <div className='relative w-full max-w-md rounded-2xl border border-border-subtle bg-canvas p-6 shadow-xl'>
                 <h3 id='confirm-dialog-title' className='text-base font-bold text-stone-950'>
                     {title}
                 </h3>
@@ -52,7 +52,7 @@ export default function ConfirmDialog({
                         type='button'
                         onClick={onCancel}
                         disabled={loading}
-                        className='rounded-xl border border-[#e6e4dc] bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition hover:bg-stone-50 disabled:opacity-50'
+                        className='rounded-xl border border-border-subtle bg-white px-4 py-2 text-xs font-semibold text-stone-700 transition hover:bg-stone-50 disabled:opacity-50'
                     >
                         {cancelLabel}
                     </button>

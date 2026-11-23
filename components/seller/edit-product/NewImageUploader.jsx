@@ -19,7 +19,7 @@ export default function NewImageUploader({ newFiles, onFileChange, onRemoveFile 
                                 accept="image/*"
                             />
                             <Image
-                                className="size-16 rounded-xl border border-[#e6e4dc] p-1 object-contain hover:border-amber-400 transition bg-stone-50"
+                                className="size-16 rounded-xl border border-border-subtle p-1 object-contain hover:border-amber-400 transition bg-stone-50"
                                 src={fileObj ? URL.createObjectURL(fileObj) : "/assets/upload_area.png"}
                                 alt="upload"
                                 width={64}

@@ -11,7 +11,7 @@ export default function ExistingImagesList({ existingImages, onRemoveImage }) {
             ) : (
                 <div className="flex flex-wrap gap-3 mb-4">
                     {existingImages.map((img, idx) => (
-                        <div key={idx} className="relative rounded-xl border border-[#e6e4dc] p-1 bg-stone-50 size-20 group">
+                        <div key={idx} className="relative rounded-xl border border-border-subtle p-1 bg-stone-50 size-20 group">
                             <Image
                                 src={img}
                                 alt="product"
